@@ -1,6 +1,6 @@
 {
     'name': 'Server Uptime Monitor',
-    'version': '20.0.2.1.0',
+    'version': '19.0.2.1.0',
     'summary': 'Monitor website availability, response time and SSL certificates',
     'category': 'Tools',
     'author': 'Custom Development',
@@ -9,7 +9,7 @@
     'license': 'AGPL-3',
     'data': [
         'security/security.xml',
-        'security/ir.access.csv',
+        'security/ir.model.access.csv',
         'data/ir_cron.xml',
         'data/mail_template.xml',
         'views/website_monitor_groups_views.xml',

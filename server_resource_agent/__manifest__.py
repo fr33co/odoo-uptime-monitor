@@ -1,6 +1,6 @@
 {
     'name': 'Server Resource Agent',
-    'version': '20.0.1.0.0',
+    'version': '19.0.1.0.0',
     'summary': 'Expose CPU, memory, storage and concurrent requests to the uptime monitor',
     'description': """
 Install this module on the Odoo server you want to monitor. It publishes a

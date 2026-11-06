@@ -39,7 +39,7 @@ class WebsiteMonitorHistory(models.Model):
     @api.autovacuum
     def _gc_old_history(self):
         """Drop history older than the configured retention (days)."""
-        days = self.env['ir.config_parameter'].sudo().get_int(
-            'server_uptime_monitor.history_retention_days', 90)
+        days = int(self.env['ir.config_parameter'].sudo().get_param(
+            'server_uptime_monitor.history_retention_days', 90))
         limit = fields.Datetime.now() - timedelta(days=days)
         self.search([('last_checked', '<', limit)]).unlink()

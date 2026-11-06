@@ -105,9 +105,9 @@ class TestMetrics(IsolatedState):
 
     def test_database_validity_is_reported(self):
         params = self.env['ir.config_parameter'].sudo()
-        params.set_str('database.expiration_date', "2027-01-31 12:30:00")
-        params.set_str('database.expiration_reason', "trial")
-        params.set_str('database.create_date', "2026-11-04 15:26:07")
+        params.set_param('database.expiration_date', "2027-01-31 12:30:00")
+        params.set_param('database.expiration_reason', "trial")
+        params.set_param('database.create_date', "2026-11-04 15:26:07")
         self.env.flush_all()  # metrics read with raw SQL
         self.assertEqual(
             metrics.database_validity(self.env.cr),
@@ -146,7 +146,7 @@ class TestAccess(TransactionCase):
         self.assertFalse(_ip_allowed('5.5.5.5', 'not-an-ip'))
 
     def test_token_is_generated_on_install(self):
-        token = self.env['ir.config_parameter'].sudo().get_str(
+        token = self.env['ir.config_parameter'].sudo().get_param(
             'server_resource_agent.token')
         self.assertGreaterEqual(len(token), 32)
 
@@ -157,8 +157,8 @@ class TestEndpoint(HttpCase, IsolatedState):
     def setUp(self):
         super().setUp()
         self.params = self.env['ir.config_parameter'].sudo()
-        self.params.set_str('server_resource_agent.token', 'secret-token')
-        self.params.set_str('server_resource_agent.allowed_ips', '')
+        self.params.set_param('server_resource_agent.token', 'secret-token')
+        self.params.set_param('server_resource_agent.allowed_ips', '')
 
     def _get(self, token=None):
         headers = {'Authorization': 'Bearer %s' % token} if token else {}
@@ -179,13 +179,13 @@ class TestEndpoint(HttpCase, IsolatedState):
         self.assertEqual(self._get('wrong').status_code, 404)
 
     def test_no_configured_token_means_closed(self):
-        self.params.set_str('server_resource_agent.token', '')
+        self.params.set_param('server_resource_agent.token', '')
         self.assertEqual(self._get('anything').status_code, 404)
 
     def test_ip_allowlist_applies_before_the_token(self):
-        self.params.set_str('server_resource_agent.allowed_ips', '10.0.0.0/8')
+        self.params.set_param('server_resource_agent.allowed_ips', '10.0.0.0/8')
         self.assertEqual(self._get('secret-token').status_code, 404)
-        self.params.set_str(
+        self.params.set_param(
             'server_resource_agent.allowed_ips', '127.0.0.1, ::1')
         self.assertEqual(self._get('secret-token').status_code, 200)
 

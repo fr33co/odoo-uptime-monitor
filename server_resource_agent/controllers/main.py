@@ -38,10 +38,10 @@ class ResourceAgent(http.Controller):
         """
         params = request.env['ir.config_parameter'].sudo()
         if not _ip_allowed(
-                params.get_str('server_resource_agent.allowed_ips'),
+                params.get_param('server_resource_agent.allowed_ips'),
                 request.httprequest.remote_addr):
             raise NotFound()
-        expected = params.get_str('server_resource_agent.token')
+        expected = params.get_param('server_resource_agent.token')
         header = request.httprequest.headers.get('Authorization', '')
         given = header[7:] if header.startswith('Bearer ') else (
             request.httprequest.headers.get('X-Agent-Token', ''))
