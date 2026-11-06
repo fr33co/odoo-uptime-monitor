@@ -1,0 +1,59 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* server_resource_agent
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 20.0\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: server_resource_agent
+#: model:ir.module.module,description:base.module_server_resource_agent
+msgid ""
+"\n"
+"Install this module on the Odoo server you want to monitor. It publishes a\n"
+"read-only JSON endpoint, ``/server_agent/metrics``, protected by a token\n"
+"(system parameter ``server_resource_agent.token``). The Server Uptime Monitor\n"
+"polls it. Not available on Odoo Online / Odoo.sh, where modules that read the\n"
+"host cannot be relied on.\n"
+msgstr ""
+"\n"
+"Instale este módulo en el servidor Odoo que desea monitorizar. Publica un\n"
+"endpoint JSON de solo lectura, ``/server_agent/metrics``, protegido por un token\n"
+"(parámetro del sistema ``server_resource_agent.token``). El Monitor de\n"
+"disponibilidad lo consulta. No está disponible en Odoo Online / Odoo.sh, donde\n"
+"no se pueden instalar módulos que lean el host.\n"
+
+#. module: server_resource_agent
+#: model:ir.model.fields,field_description:server_resource_agent.field_ir_http__display_name
+msgid "Display Name"
+msgstr "Nombre para mostrar"
+
+#. module: server_resource_agent
+#: model:ir.module.module,summary:base.module_server_resource_agent
+msgid ""
+"Expose CPU, memory, storage and concurrent requests to the uptime monitor"
+msgstr ""
+"Expone CPU, memoria, almacenamiento y peticiones concurrentes al monitor de "
+"disponibilidad"
+"Expone CPU, memoria, almacenamiento y peticiones concurrentes al monitor de "
+"disponibilidad"
+
+#. module: server_resource_agent
+#: model:ir.model,name:server_resource_agent.model_ir_http
+msgid "HTTP Routing"
+msgstr "Enrutamiento HTTP"
+
+#. module: server_resource_agent
+#: model:ir.model.fields,field_description:server_resource_agent.field_ir_http__id
+msgid "ID"
+msgstr "ID"
+
+#. module: server_resource_agent
+#: model:ir.module.module,shortdesc:base.module_server_resource_agent
+msgid "Server Resource Agent"
+msgstr ""

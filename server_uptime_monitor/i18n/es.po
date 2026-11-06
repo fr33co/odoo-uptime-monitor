@@ -1,0 +1,1072 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* server_uptime_monitor
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 20.0\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: server_uptime_monitor
+#: model:mail.template,name:server_uptime_monitor.email_monitor_template
+msgid "Server Uptime Monitor - Email Template"
+msgstr "Monitor de disponibilidad - Plantilla de alerta"
+
+#. module: server_uptime_monitor
+#: model:mail.template,subject:server_uptime_monitor.email_monitor_template
+msgid "Alert! Server: {{ object.name }} needs your attention!"
+msgstr "¡Alerta! El servidor {{ object.name }} necesita tu atención"
+
+#. module: server_uptime_monitor
+#: model_terms:mail.template,body_html:server_uptime_monitor.email_monitor_template
+msgid "<b>Warning!</b>"
+msgstr "<b>¡Advertencia!</b>"
+
+#. module: server_uptime_monitor
+#: model_terms:mail.template,body_html:server_uptime_monitor.email_monitor_template
+msgid "Your server seems to be having problems. You need to check it."
+msgstr "Tu servidor parece tener problemas. Debes revisarlo."
+
+#. module: server_uptime_monitor
+#: model_terms:mail.template,body_html:server_uptime_monitor.email_monitor_template
+msgid "Check out your server here:"
+msgstr "Revisa tu servidor aquí:"
+
+#. module: server_uptime_monitor
+#: model_terms:mail.template,body_html:server_uptime_monitor.email_monitor_template
+msgid "More information below"
+msgstr "Más información a continuación"
+
+#. module: server_uptime_monitor
+#: model_terms:mail.template,body_html:server_uptime_monitor.email_monitor_template
+msgid "HTTP Server Information"
+msgstr "Información del servidor HTTP"
+
+#. module: server_uptime_monitor
+#: model_terms:mail.template,body_html:server_uptime_monitor.email_monitor_template
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.status_page
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_history_view_search
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_view_form
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_view_search
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__status
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor_history__status
+msgid "Status"
+msgstr "Estado"
+
+#. module: server_uptime_monitor
+#: model_terms:mail.template,body_html:server_uptime_monitor.email_monitor_template
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__response_time
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor_history__response_time
+msgid "Response Time (ms)"
+msgstr "Tiempo de respuesta (ms)"
+
+#. module: server_uptime_monitor
+#: model_terms:mail.template,body_html:server_uptime_monitor.email_monitor_template
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__http_server
+msgid "HTTP Server"
+msgstr "Servidor HTTP"
+
+#. module: server_uptime_monitor
+#: model_terms:mail.template,body_html:server_uptime_monitor.email_monitor_template
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__http_status
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor_history__http_status
+msgid "HTTP Status"
+msgstr "Estado HTTP"
+
+#. module: server_uptime_monitor
+#: model_terms:mail.template,body_html:server_uptime_monitor.email_monitor_template
+msgid "HTTP Status msg"
+msgstr "Mensaje de estado HTTP"
+
+#. module: server_uptime_monitor
+#: model_terms:mail.template,body_html:server_uptime_monitor.email_monitor_template
+msgid "SSL Server Information"
+msgstr "Información SSL del servidor"
+
+#. module: server_uptime_monitor
+#: model_terms:mail.template,body_html:server_uptime_monitor.email_monitor_template
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__ssl_status
+msgid "SSL Status"
+msgstr "Estado SSL"
+
+#. module: server_uptime_monitor
+#: model_terms:mail.template,body_html:server_uptime_monitor.email_monitor_template
+msgid "SSL Issued By"
+msgstr "SSL emitido por"
+
+#. module: server_uptime_monitor
+#: model_terms:mail.template,body_html:server_uptime_monitor.email_monitor_template
+msgid "SSL Until"
+msgstr "SSL hasta"
+
+#. module: server_uptime_monitor
+#: model:mail.template,name:server_uptime_monitor.email_monitor_recovery_template
+msgid "Server Uptime Monitor - Recovery Template"
+msgstr "Monitor de disponibilidad - Plantilla de recuperación"
+
+#. module: server_uptime_monitor
+#: model:mail.template,subject:server_uptime_monitor.email_monitor_recovery_template
+msgid "Recovered: {{ object.name }} is back online"
+msgstr "Recuperado: {{ object.name }} está de nuevo en línea"
+
+#. module: server_uptime_monitor
+#: model_terms:mail.template,body_html:server_uptime_monitor.email_monitor_recovery_template
+msgid "<b>Service recovered</b>"
+msgstr "<b>Servicio recuperado</b>"
+
+#. module: server_uptime_monitor
+#: model_terms:mail.template,body_html:server_uptime_monitor.email_monitor_recovery_template
+#: model_terms:mail.template,body_html:server_uptime_monitor.email_monitor_expiry_template
+#: model_terms:mail.template,body_html:server_uptime_monitor.email_monitor_expiry_template
+msgid "("
+msgstr "("
+
+#. module: server_uptime_monitor
+#: model_terms:mail.template,body_html:server_uptime_monitor.email_monitor_recovery_template
+msgid ") is working again."
+msgstr ") funciona de nuevo."
+
+#. module: server_uptime_monitor
+#: model_terms:mail.template,body_html:server_uptime_monitor.email_monitor_recovery_template
+msgid "Total downtime:"
+msgstr "Tiempo total de caída:"
+
+#. module: server_uptime_monitor
+#: model_terms:mail.template,body_html:server_uptime_monitor.email_monitor_recovery_template
+msgid "minutes."
+msgstr "minutos."
+
+#. module: server_uptime_monitor
+#: model_terms:mail.template,body_html:server_uptime_monitor.email_monitor_recovery_template
+msgid "Current response time:"
+msgstr "Tiempo de respuesta actual:"
+
+#. module: server_uptime_monitor
+#: model_terms:mail.template,body_html:server_uptime_monitor.email_monitor_recovery_template
+msgid "ms."
+msgstr "ms."
+
+#. module: server_uptime_monitor
+#: model:mail.template,name:server_uptime_monitor.email_monitor_expiry_template
+msgid "Server Uptime Monitor - Expiry Template"
+msgstr "Monitor de disponibilidad - Plantilla de vencimiento"
+
+#. module: server_uptime_monitor
+#: model:mail.template,subject:server_uptime_monitor.email_monitor_expiry_template
+msgid "Expiry warning: {{ object.name }}"
+msgstr "Aviso de vencimiento: {{ object.name }}"
+
+#. module: server_uptime_monitor
+#: model_terms:mail.template,body_html:server_uptime_monitor.email_monitor_expiry_template
+msgid "<b>Expiry warning</b>"
+msgstr "<b>Aviso de vencimiento</b>"
+
+#. module: server_uptime_monitor
+#: model_terms:mail.template,body_html:server_uptime_monitor.email_monitor_expiry_template
+msgid "The SSL certificate of"
+msgstr "El certificado SSL de"
+
+#. module: server_uptime_monitor
+#: model_terms:mail.template,body_html:server_uptime_monitor.email_monitor_expiry_template
+#: model_terms:mail.template,body_html:server_uptime_monitor.email_monitor_expiry_template
+msgid "expires on"
+msgstr "vence el"
+
+#. module: server_uptime_monitor
+#: model_terms:mail.template,body_html:server_uptime_monitor.email_monitor_expiry_template
+#: model_terms:mail.template,body_html:server_uptime_monitor.email_monitor_expiry_template
+msgid "days left)."
+msgstr "días restantes)."
+
+#. module: server_uptime_monitor
+#: model_terms:mail.template,body_html:server_uptime_monitor.email_monitor_expiry_template
+msgid "The domain of"
+msgstr "El dominio de"
+
+#. module: server_uptime_monitor
+#: model:res.groups.privilege,name:server_uptime_monitor.res_groups_privilege_website_monitor
+#: model:ir.ui.menu,name:server_uptime_monitor.website_monitor_menu_root
+msgid "Website Monitor"
+msgstr "Monitor de sitios web"
+
+#. module: server_uptime_monitor
+#: model:res.groups,name:server_uptime_monitor.group_website_monitor_user
+msgid "User"
+msgstr "Usuario"
+
+#. module: server_uptime_monitor
+#: model:res.groups,comment:server_uptime_monitor.group_website_monitor_user
+msgid "Can view monitored websites and their history."
+msgstr "Puede ver los sitios monitorizados y su historial."
+
+#. module: server_uptime_monitor
+#: model:res.groups,name:server_uptime_monitor.group_website_monitor_manager
+msgid "Administrator"
+msgstr "Administrador"
+
+#. module: server_uptime_monitor
+#: model:res.groups,comment:server_uptime_monitor.group_website_monitor_manager
+msgid "Can configure websites, groups and contacts."
+msgstr "Puede configurar sitios, grupos y contactos."
+
+#. module: server_uptime_monitor
+#: model:ir.ui.menu,name:server_uptime_monitor.website_monitor_menu_websites
+#: model:ir.actions.act_window,name:server_uptime_monitor.website_monitor_action
+msgid "Monitored Websites"
+msgstr "Sitios monitorizados"
+
+#. module: server_uptime_monitor
+#: model:ir.ui.menu,name:server_uptime_monitor.website_monitor_menu_report
+msgid "Reporting"
+msgstr "Informes"
+
+#. module: server_uptime_monitor
+#: model:ir.ui.menu,name:server_uptime_monitor.website_monitor_menu_history
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_view_form
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__history_ids
+msgid "History"
+msgstr "Historial"
+
+#. module: server_uptime_monitor
+#: model:ir.ui.menu,name:server_uptime_monitor.website_monitor_menu_configuration
+msgid "Configuration"
+msgstr "Configuración"
+
+#. module: server_uptime_monitor
+#: model:ir.ui.menu,name:server_uptime_monitor.website_monitor_menu_groups
+msgid "Groups"
+msgstr "Grupos"
+
+#. module: server_uptime_monitor
+#: model:ir.ui.menu,name:server_uptime_monitor.website_monitor_menu_contacts
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor_groups__contacts_ids
+msgid "Contacts"
+msgstr "Contactos"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.status_page
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.status_page
+msgid "Service Status"
+msgstr "Estado del servicio"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.status_page
+msgid "All systems operational"
+msgstr "Todos los sistemas operativos"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.status_page
+msgid "Some services are experiencing problems"
+msgstr "Algunos servicios tienen problemas"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.status_page
+msgid "Service"
+msgstr "Servicio"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.status_page
+msgid "Uptime (30 days)"
+msgstr "Disponibilidad (30 días)"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.status_page
+msgid "Operational"
+msgstr "Operativo"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.status_page
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_history_view_search
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_view_search
+#: model:ir.model.fields.selection,name:server_uptime_monitor.selection__website_monitor__status__down
+#: model:ir.model.fields.selection,name:server_uptime_monitor.selection__website_monitor_history__status__down
+msgid "Down"
+msgstr "Caído"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.status_page
+msgid "Unknown"
+msgstr "Desconocido"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.status_page
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_view_kanban
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_view_kanban
+msgid "%"
+msgstr "%"
+
+#. module: server_uptime_monitor
+#: model:ir.actions.act_window,name:server_uptime_monitor.website_monitor_contacts_action
+msgid "Website Monitor Contacts"
+msgstr "Contactos del monitor de sitios web"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.actions.act_window,help:server_uptime_monitor.website_monitor_contacts_action
+msgid "Create a contact"
+msgstr "Crea un contacto"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_groups_view_form
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_view_form
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_view_search
+msgid "Archived"
+msgstr "Archivado"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_groups_view_form
+msgid "External Contacts"
+msgstr "Contactos externos"
+
+#. module: server_uptime_monitor
+#: model:ir.actions.act_window,name:server_uptime_monitor.website_monitor_groups_action
+msgid "Website Monitor Groups"
+msgstr "Grupos del monitor de sitios web"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.actions.act_window,help:server_uptime_monitor.website_monitor_groups_action
+msgid "Create a notification group"
+msgstr "Crea un grupo de notificación"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_history_view_search
+msgid "Last 24 Hours"
+msgstr "Últimas 24 horas"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_history_view_search
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__last_checked
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor_history__last_checked
+msgid "Last Checked"
+msgstr "Última comprobación"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_history_view_search
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor_history__server_id
+msgid "Server"
+msgstr "Servidor"
+
+#. module: server_uptime_monitor
+#: model:ir.actions.act_window,name:server_uptime_monitor.website_monitor_history_action
+msgid "Website Monitor History"
+msgstr "Historial del monitor de sitios web"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.actions.act_window,help:server_uptime_monitor.website_monitor_history_action
+msgid "No history yet"
+msgstr "Aún no hay historial"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.actions.act_window,help:server_uptime_monitor.website_monitor_history_action
+msgid "History is recorded every time the monitor cron runs."
+msgstr "El historial se registra cada vez que se ejecuta el cron del monitor."
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_view_kanban
+msgid "<span>Uptime 24h</span>"
+msgstr "<span>Disponibilidad 24h</span>"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_view_kanban
+msgid "<span>Uptime 30d</span>"
+msgstr "<span>Disponibilidad 30d</span>"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_view_kanban
+msgid "<span>Response (ms)</span>"
+msgstr "<span>Respuesta (ms)</span>"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_view_kanban
+msgid "<span>SSL days left</span>"
+msgstr "<span>Días SSL restantes</span>"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_view_form
+msgid "Check Now"
+msgstr "Comprobar ahora"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_view_form
+msgid "Website name"
+msgstr "Nombre del sitio web"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_view_form
+msgid "https://example.com"
+msgstr "https://ejemplo.com"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_view_form
+msgid "Availability"
+msgstr "Disponibilidad"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_view_form
+msgid "Last Response"
+msgstr "Última respuesta"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_view_form
+msgid "SSL"
+msgstr "SSL"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_view_form
+msgid "Domain"
+msgstr "Dominio"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_view_form
+msgid "Schedule"
+msgstr "Programación"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_view_form
+#: model:ir.model.fields.selection,name:server_uptime_monitor.selection__website_monitor__check_type__http
+msgid "HTTP"
+msgstr "HTTP"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_view_form
+msgid "Header-Name: value"
+msgstr "Nombre-Cabecera: valor"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_view_form
+msgid "Authentication and Headers"
+msgstr "Autenticación y cabeceras"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_view_form
+msgid "Check Settings"
+msgstr "Ajustes de comprobación"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_view_search
+#: model:ir.model.fields.selection,name:server_uptime_monitor.selection__website_monitor__status__up
+#: model:ir.model.fields.selection,name:server_uptime_monitor.selection__website_monitor_history__status__up
+msgid "Up"
+msgstr "Activo"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_view_search
+msgid "SSL Expiring (30 days)"
+msgstr "SSL por vencer (30 días)"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_view_search
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__monitor_group_id
+msgid "Notify Group"
+msgstr "Grupo de notificación"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.actions.act_window,help:server_uptime_monitor.website_monitor_action
+msgid "Add a website to monitor"
+msgstr "Añade un sitio web para monitorizar"
+
+#. module: server_uptime_monitor
+#: model:ir.model,name:server_uptime_monitor.model_website_monitor
+msgid "Website Uptime Monitor"
+msgstr "Monitor de disponibilidad de sitios web"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__name
+msgid "Website Name"
+msgstr "Nombre del sitio web"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__url
+msgid "URL / Host"
+msgstr "URL / Host"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,help:server_uptime_monitor.field_website_monitor__url
+msgid "Full URL for HTTP checks, or a host name for TCP checks."
+msgstr "URL completa para comprobaciones HTTP, o nombre de host para comprobaciones TCP."
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__active
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor_groups__active
+msgid "Active"
+msgstr "Activo"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__show_on_status_page
+msgid "Show on Status Page"
+msgstr "Mostrar en la página de estado"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__check_type
+msgid "Check Type"
+msgstr "Tipo de comprobación"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields.selection,name:server_uptime_monitor.selection__website_monitor__check_type__tcp
+msgid "TCP port"
+msgstr "Puerto TCP"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__tcp_port
+msgid "TCP Port"
+msgstr "Puerto TCP"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__http_method
+msgid "Method"
+msgstr "Método"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields.selection,name:server_uptime_monitor.selection__website_monitor__http_method__GET
+msgid "GET"
+msgstr "GET"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields.selection,name:server_uptime_monitor.selection__website_monitor__http_method__HEAD
+msgid "HEAD"
+msgstr "HEAD"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__expected_status
+msgid "Expected HTTP Status"
+msgstr "Estado HTTP esperado"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,help:server_uptime_monitor.field_website_monitor__expected_status
+msgid "Leave 0 to accept any status below 500."
+msgstr "Deja 0 para aceptar cualquier estado por debajo de 500."
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__expected_keyword
+msgid "Expected Keyword"
+msgstr "Palabra clave esperada"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,help:server_uptime_monitor.field_website_monitor__expected_keyword
+msgid "The response body must contain this text."
+msgstr "El cuerpo de la respuesta debe contener este texto."
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__custom_headers
+msgid "Custom Headers"
+msgstr "Cabeceras personalizadas"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,help:server_uptime_monitor.field_website_monitor__custom_headers
+msgid "One 'Name: value' per line."
+msgstr "Un 'Nombre: valor' por línea."
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__auth_user
+msgid "Basic Auth User"
+msgstr "Usuario de autenticación básica"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__auth_password
+msgid "Basic Auth Password"
+msgstr "Contraseña de autenticación básica"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__verify_ssl
+msgid "Verify SSL"
+msgstr "Verificar SSL"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__check_domain_expiry
+msgid "Check Domain Expiry"
+msgstr "Comprobar vencimiento del dominio"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__check_interval
+msgid "Check Every (min)"
+msgstr "Comprobar cada (min)"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__timeout
+msgid "Timeout (s)"
+msgstr "Tiempo de espera (s)"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__failure_threshold
+msgid "Failures Before Alert"
+msgstr "Fallos antes de alertar"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,help:server_uptime_monitor.field_website_monitor__failure_threshold
+msgid "Consecutive failed checks needed before alerting."
+msgstr "Comprobaciones fallidas consecutivas necesarias antes de alertar."
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__max_response_time
+msgid "Slow Threshold (ms)"
+msgstr "Umbral de lentitud (ms)"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,help:server_uptime_monitor.field_website_monitor__max_response_time
+msgid "A response slower than this triggers an alert."
+msgstr "Una respuesta más lenta que esto genera una alerta."
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__next_check
+msgid "Next Check"
+msgstr "Próxima comprobación"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields.selection,name:server_uptime_monitor.selection__website_monitor__status__no_checked
+msgid "Not Checked"
+msgstr "Sin comprobar"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__http_status_msg
+msgid "HTTP Status Message"
+msgstr "Mensaje de estado HTTP"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__ssl_issued_by
+msgid "SSL Issued by"
+msgstr "SSL emitido por"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__ssl_expiry_date
+msgid "SSL Valid Until"
+msgstr "SSL válido hasta"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__ssl_days_left
+msgid "SSL Days Left"
+msgstr "Días restantes de SSL"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__domain_expiry_date
+msgid "Domain Expires"
+msgstr "El dominio vence"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__domain_days_left
+msgid "Domain Days Left"
+msgstr "Días restantes del dominio"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__domain_checked_at
+msgid "Domain Checked At"
+msgstr "Dominio comprobado el"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__consecutive_failures
+msgid "Consecutive Failures"
+msgstr "Fallos consecutivos"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__problem_since
+msgid "Problem Since"
+msgstr "Problema desde"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__last_downtime_minutes
+msgid "Last Downtime (min)"
+msgstr "Última caída (min)"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__service_notified
+msgid "Alert Sent"
+msgstr "Alerta enviada"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__ssl_alert_level
+msgid "Ssl Alert Level"
+msgstr "Nivel de alerta SSL"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__domain_alert_level
+msgid "Domain Alert Level"
+msgstr "Nivel de alerta del dominio"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__color
+msgid "Color"
+msgstr "Color"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__history_count
+msgid "History Count"
+msgstr "Cantidad de historial"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__uptime_24h
+msgid "Uptime 24h (%)"
+msgstr "Disponibilidad 24h (%)"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__uptime_7d
+msgid "Uptime 7d (%)"
+msgstr "Disponibilidad 7d (%)"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__uptime_30d
+msgid "Uptime 30d (%)"
+msgstr "Disponibilidad 30d (%)"
+
+#. module: server_uptime_monitor
+#: model:ir.model.constraint,message:server_uptime_monitor.constraint_website_monitor_check_interval_positive
+msgid "The check interval must be positive."
+msgstr "El intervalo de comprobación debe ser positivo."
+
+#. module: server_uptime_monitor
+#: model:ir.model.constraint,message:server_uptime_monitor.constraint_website_monitor_timeout_positive
+msgid "The timeout must be positive."
+msgstr "El tiempo de espera debe ser positivo."
+
+#. module: server_uptime_monitor
+#: model:ir.model.constraint,message:server_uptime_monitor.constraint_website_monitor_threshold_positive
+msgid "The failure threshold must be at least 1."
+msgstr "El umbral de fallos debe ser al menos 1."
+
+#. module: server_uptime_monitor
+#: code:addons/server_uptime_monitor/models/website_monitor.py:123
+msgid "A valid TCP port is required."
+msgstr "Se requiere un puerto TCP válido."
+
+#. module: server_uptime_monitor
+#: model:ir.model,name:server_uptime_monitor.model_website_monitor_contacts
+msgid "Website Uptime Monitor Contacts"
+msgstr "Contactos del monitor de disponibilidad"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor_contacts__email
+#: model:ir.model.fields.selection,name:server_uptime_monitor.selection__website_monitor_contacts__notification_type__email
+msgid "Email"
+msgstr "Correo electrónico"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor_contacts__phone
+msgid "Phone"
+msgstr "Teléfono"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor_contacts__notification_type
+msgid "Notification Type"
+msgstr "Tipo de notificación"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields.selection,name:server_uptime_monitor.selection__website_monitor_contacts__notification_type__telegram
+msgid "Telegram"
+msgstr "Telegram"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor_contacts__monitor_group_id
+msgid "Monitor Group"
+msgstr "Grupo de monitor"
+
+#. module: server_uptime_monitor
+#: code:addons/server_uptime_monitor/models/website_monitor_contacts.py:26
+msgid "An email is required for email contacts."
+msgstr "Se requiere un correo electrónico para los contactos de tipo email."
+
+#. module: server_uptime_monitor
+#: code:addons/server_uptime_monitor/models/website_monitor_contacts.py:28
+msgid "A phone is required for Telegram contacts."
+msgstr "Se requiere un teléfono para los contactos de Telegram."
+
+#. module: server_uptime_monitor
+#: model:ir.model,name:server_uptime_monitor.model_website_monitor_groups
+msgid "Website Uptime Monitor Groups"
+msgstr "Grupos del monitor de disponibilidad"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor_groups__name
+msgid "Group Name"
+msgstr "Nombre del grupo"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor_groups__user_ids
+msgid "Odoo Users"
+msgstr "Usuarios de Odoo"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,help:server_uptime_monitor.field_website_monitor_groups__user_ids
+msgid "Internal users notified at the email of their contact card."
+msgstr "Usuarios internos notificados en el correo de su ficha de contacto."
+
+#. module: server_uptime_monitor
+#: model:ir.model,name:server_uptime_monitor.model_website_monitor_history
+msgid "Website Uptime Monitor History"
+msgstr "Historial del monitor de disponibilidad"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor_history__check_label
+msgid "Check Time (UTC)"
+msgstr "Hora de comprobación (UTC)"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,help:server_uptime_monitor.field_website_monitor_history__check_label
+msgid "Check time truncated to the minute. Sortable text used to plot one point per check in graphs."
+msgstr "Hora de comprobación truncada al minuto. Texto ordenable usado para dibujar un punto por comprobación en las gráficas."
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__agent_status
+msgid "Agent Status"
+msgstr "Estado del agente"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__agent_token
+msgid "Agent Token"
+msgstr "Token del agente"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__agent_url
+msgid "Agent URL"
+msgstr "URL del agente"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_view_form
+msgid "CPU %"
+msgstr "CPU %"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__cpu_percent
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor_history__cpu_percent
+msgid "CPU (%)"
+msgstr "CPU (%)"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_view_form
+msgid "Concurrent"
+msgstr "Concurrentes"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__requests_in_flight
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor_history__requests_in_flight
+msgid "Concurrent Requests"
+msgstr "Peticiones concurrentes"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__domain_status
+msgid "Domain Check"
+msgstr "Verificación de dominio"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,help:server_uptime_monitor.field_website_monitor__agent_url
+msgid "Leave empty to use <site origin>/server_agent/metrics."
+msgstr "Déjelo vacío para usar <origen del sitio>/server_agent/metrics."
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__max_cpu
+msgid "Max CPU (%)"
+msgstr "CPU máx. (%)"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__max_concurrent
+msgid "Max Concurrent Requests"
+msgstr "Máx. peticiones concurrentes"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__max_memory
+msgid "Max Memory (%)"
+msgstr "Memoria máx. (%)"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__max_disk
+msgid "Max Storage (%)"
+msgstr "Almacenamiento máx. (%)"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_view_form
+msgid "Memory %"
+msgstr "Memoria %"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__memory_percent
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor_history__memory_percent
+msgid "Memory (%)"
+msgstr "Memoria (%)"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__is_odoo
+msgid "Odoo Instance"
+msgstr "Instancia de Odoo"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__agent_enabled
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_view_form
+msgid "Server Resources"
+msgstr "Recursos del servidor"
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_view_form
+msgid "Storage %"
+msgstr "Almacenamiento %"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__disk_percent
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor_history__disk_percent
+msgid "Storage (%)"
+msgstr "Almacenamiento (%)"
+
+#. module: server_uptime_monitor
+#. odoo-python
+#: code:addons/server_uptime_monitor/models/website_monitor.py:0
+msgid "Set the Agent URL for a TCP monitor."
+msgstr "Indique la URL del agente para un monitor TCP."
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,help:server_uptime_monitor.field_website_monitor__agent_token
+msgid "System parameter server_resource_agent.token of the server."
+msgstr "Parámetro del sistema server_resource_agent.token del servidor."
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,help:server_uptime_monitor.field_website_monitor__max_concurrent
+msgid "Peak of requests served at the same time between two checks. 0 disables this threshold."
+msgstr "Pico de peticiones atendidas al mismo tiempo entre dos comprobaciones. 0 desactiva este umbral."
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,help:server_uptime_monitor.field_website_monitor__is_odoo
+msgid "Measure responsiveness the way an Odoo.sh instance needs: one anonymous GET to /web/login (rendered by a worker, needs the database), timing only the response headers and not downloading the page. Combine with 'Slow Threshold' and 'Failures Before Alert' to be warned only when the instance stays slow. Keep the interval at 5 minutes or more."
+msgstr "Mide la capacidad de respuesta como lo necesita una instancia de Odoo.sh: un único GET anónimo a /web/login (lo renderiza un worker y necesita la base de datos), midiendo solo las cabeceras de la respuesta sin descargar la página. Combínelo con «Umbral de lentitud» y «Fallos antes de alertar» para recibir aviso solo cuando la instancia sigue lenta. Mantenga el intervalo en 5 minutos o más."
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,help:server_uptime_monitor.field_website_monitor__agent_enabled
+msgid "Only for Odoo servers. Read CPU, memory, storage and concurrent requests from the Server Resource Agent module installed on the monitored server."
+msgstr "Solo para servidores Odoo. Lee CPU, memoria, almacenamiento y peticiones concurrentes del módulo Server Resource Agent instalado en el servidor monitorizado."
+
+#. module: server_uptime_monitor
+#: model:ir.actions.server,name:server_uptime_monitor.ir_cron_check_website_monitor_cron_ir_actions_server
+msgid "Website Monitor: check websites"
+msgstr "Monitor web: comprobar sitios web"
+
+#. module: server_uptime_monitor
+#: model:mail.template,body_html:server_uptime_monitor.email_monitor_template
+msgid "<div>\n                    <h2><b>Warning!</b></h2>\n                    <p>Your server seems to be having problems. You need to check it.</p>\n                    <p>Check out your server here: <a t-att-href=\"object.url\"><t t-out=\"object.url\"/></a></p>\n                    <p>More information below</p>\n                    <style>\n                    .table_component {\n                        overflow: auto;\n                        width: 100%;\n                    }\n\n                    .table_component table {\n                        border: 1px solid #dededf;\n                        height: 100%;\n                        width: 100%;\n                        table-layout: fixed;\n                        border-collapse: collapse;\n                        border-spacing: 1px;\n                        text-align: left;\n                    }\n\n                    .table_component caption {\n                        caption-side: top;\n                        text-align: left;\n                    }\n\n                    .table_component th {\n                        border: 1px solid #dededf;\n                        background-color: #c0bfbc;\n                        color: #000000;\n                        padding: 5px;\n                    }\n\n                    .table_component td {\n                        border: 1px solid #dededf;\n                        background-color: #ffffff;\n                        color: #000000;\n                        padding: 5px;\n                    }\n                    </style>\n                    <div class=\"table_component\" role=\"region\" tabindex=\"0\">\n                        <table>\n                            <caption>HTTP Server Information</caption>\n                            <thead>\n                                <tr>\n                                    <th>Status</th>\n                                    <th>Response Time (ms)</th>\n                                    <th>HTTP Server</th>\n                                    <th>HTTP Status</th>\n                                    <th>HTTP Status msg</th>\n                                </tr>\n                            </thead>\n                            <tbody>\n                                <tr>\n                                    <td><t t-out=\"object.status\"/></td>\n                                    <td><t t-out=\"object.response_time\" t-options=\"{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2}\"/></td>\n                                    <td><t t-out=\"object.http_server\"/></td>\n                                    <td><t t-out=\"object.http_status\"/></td>\n                                    <td><t t-out=\"object.http_status_msg\"/></td>\n                                </tr>\n                            </tbody>\n                        </table>\n                    </div>\n                    <t t-if=\"object.is_odoo and object.agent_enabled and object.agent_status == 'OK'\">\n                        <t t-if=\"object._resource_problems()\">\n                            <p><b>Server resources over their limit:</b></p>\n                            <ul>\n                                <li t-foreach=\"object._resource_problems()\" t-as=\"problem\"><t t-out=\"problem\"/></li>\n                            </ul>\n                        </t>\n                        <div class=\"table_component\" role=\"region\" tabindex=\"0\">\n                            <table>\n                                <caption>Server Resources</caption>\n                                <thead>\n                                    <tr>\n                                        <th>CPU (%)</th>\n                                        <th>Memory (%)</th>\n                                        <th>Storage (%)</th>\n                                        <th>Concurrent Requests</th>\n                                    </tr>\n                                </thead>\n                                <tbody>\n                                    <tr>\n                                        <td><t t-out=\"object.cpu_percent\" t-options=\"{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 1}\"/></td>\n                                        <td><t t-out=\"object.memory_percent\" t-options=\"{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 1}\"/></td>\n                                        <td><t t-out=\"object.disk_percent\" t-options=\"{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 1}\"/></td>\n                                        <td><t t-out=\"object.requests_in_flight\"/></td>\n                                    </tr>\n                                </tbody>\n                            </table>\n                        </div>\n                    </t>\n                    <div class=\"table_component\" role=\"region\" tabindex=\"0\">\n                        <table>\n                            <caption>SSL Server Information</caption>\n                            <thead>\n                                <tr>\n                                    <th>SSL Status</th>\n                                    <th>SSL Issued By</th>\n                                    <th>SSL Until</th>\n                                </tr>\n                            </thead>\n                            <tbody>\n                                <tr>\n                                    <td><t t-out=\"object.ssl_status\"/></td>\n                                    <td><t t-out=\"object.ssl_issued_by\"/></td>\n                                    <td><t t-out=\"object.ssl_expiry_date\"/></td>\n                                </tr>\n                            </tbody>\n                        </table>\n                    </div>\n               </div>\n           "
+msgstr "<div>\n                    <h2><b>¡Advertencia!</b></h2>\n                    <p>Tu servidor parece tener problemas. Debes revisarlo.</p>\n                    <p>Revisa tu servidor aquí: <a t-att-href=\"object.url\"><t t-out=\"object.url\"/></a></p>\n                    <p>Más información a continuación</p>\n                    <style>\n                    .table_component {\n                        overflow: auto;\n                        width: 100%;\n                    }\n\n                    .table_component table {\n                        border: 1px solid #dededf;\n                        height: 100%;\n                        width: 100%;\n                        table-layout: fixed;\n                        border-collapse: collapse;\n                        border-spacing: 1px;\n                        text-align: left;\n                    }\n\n                    .table_component caption {\n                        caption-side: top;\n                        text-align: left;\n                    }\n\n                    .table_component th {\n                        border: 1px solid #dededf;\n                        background-color: #c0bfbc;\n                        color: #000000;\n                        padding: 5px;\n                    }\n\n                    .table_component td {\n                        border: 1px solid #dededf;\n                        background-color: #ffffff;\n                        color: #000000;\n                        padding: 5px;\n                    }\n                    </style>\n                    <div class=\"table_component\" role=\"region\" tabindex=\"0\">\n                        <table>\n                            <caption>Información del servidor HTTP</caption>\n                            <thead>\n                                <tr>\n                                    <th>Estado</th>\n                                    <th>Tiempo de respuesta (ms)</th>\n                                    <th>Servidor HTTP</th>\n                                    <th>Estado HTTP</th>\n                                    <th>Mensaje de estado HTTP</th>\n                                </tr>\n                            </thead>\n                            <tbody>\n                                <tr>\n                                    <td><t t-out=\"object.status\"/></td>\n                                    <td><t t-out=\"object.response_time\" t-options=\"{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2}\"/></td>\n                                    <td><t t-out=\"object.http_server\"/></td>\n                                    <td><t t-out=\"object.http_status\"/></td>\n                                    <td><t t-out=\"object.http_status_msg\"/></td>\n                                </tr>\n                            </tbody>\n                        </table>\n                    </div>\n                    <t t-if=\"object.is_odoo and object.agent_enabled and object.agent_status == 'OK'\">\n                        <t t-if=\"object._resource_problems()\">\n                            <p><b>Recursos del servidor por encima de su límite:</b></p>\n                            <ul>\n                                <li t-foreach=\"object._resource_problems()\" t-as=\"problem\"><t t-out=\"problem\"/></li>\n                            </ul>\n                        </t>\n                        <div class=\"table_component\" role=\"region\" tabindex=\"0\">\n                            <table>\n                                <caption>Recursos del servidor</caption>\n                                <thead>\n                                    <tr>\n                                        <th>CPU (%)</th>\n                                        <th>Memoria (%)</th>\n                                        <th>Almacenamiento (%)</th>\n                                        <th>Peticiones concurrentes</th>\n                                    </tr>\n                                </thead>\n                                <tbody>\n                                    <tr>\n                                        <td><t t-out=\"object.cpu_percent\" t-options=\"{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 1}\"/></td>\n                                        <td><t t-out=\"object.memory_percent\" t-options=\"{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 1}\"/></td>\n                                        <td><t t-out=\"object.disk_percent\" t-options=\"{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 1}\"/></td>\n                                        <td><t t-out=\"object.requests_in_flight\"/></td>\n                                    </tr>\n                                </tbody>\n                            </table>\n                        </div>\n                    </t>\n                    <div class=\"table_component\" role=\"region\" tabindex=\"0\">\n                        <table>\n                            <caption>Información SSL del servidor</caption>\n                            <thead>\n                                <tr>\n                                    <th>Estado SSL</th>\n                                    <th>SSL emitido por</th>\n                                    <th>SSL hasta</th>\n                                </tr>\n                            </thead>\n                            <tbody>\n                                <tr>\n                                    <td><t t-out=\"object.ssl_status\"/></td>\n                                    <td><t t-out=\"object.ssl_issued_by\"/></td>\n                                    <td><t t-out=\"object.ssl_expiry_date\"/></td>\n                                </tr>\n                            </tbody>\n                        </table>\n                    </div>\n               </div>\n           "
+
+#. module: server_uptime_monitor
+#: model:mail.template,body_html:server_uptime_monitor.email_monitor_expiry_template
+msgid "<div>\n                   <h2><b>Expiry warning</b></h2>\n                   <p t-if=\"ctx.get('expiry_kind') == 'ssl_expiry'\">\n                       The SSL certificate of <t t-out=\"object.name\"/> expires on\n                       <b><t t-out=\"object.ssl_expiry_date\"/></b>\n                       (<t t-out=\"object.ssl_days_left\"/> days left).\n                   </p>\n                   <p t-else=\"\">\n                       The domain of <t t-out=\"object.name\"/> expires on\n                       <b><t t-out=\"object.domain_expiry_date\"/></b>\n                       (<t t-out=\"object.domain_days_left\"/> days left).\n                   </p>\n               </div>\n           "
+msgstr "<div>\n                   <h2><b>Aviso de vencimiento</b></h2>\n                   <p t-if=\"ctx.get('expiry_kind') == 'ssl_expiry'\">\n                       El certificado SSL de <t t-out=\"object.name\"/> vence el\n                       <b><t t-out=\"object.ssl_expiry_date\"/></b>\n                       (<t t-out=\"object.ssl_days_left\"/> días restantes).\n                   </p>\n                   <p t-else=\"\">\n                       El dominio de <t t-out=\"object.name\"/> vence el\n                       <b><t t-out=\"object.domain_expiry_date\"/></b>\n                       (<t t-out=\"object.domain_days_left\"/> días restantes).\n                   </p>\n               </div>\n           "
+
+#. module: server_uptime_monitor
+#: model:mail.template,body_html:server_uptime_monitor.email_monitor_recovery_template
+msgid "<div>\n                   <h2><b>Service recovered</b></h2>\n                   <p><t t-out=\"object.name\"/> (<a t-att-href=\"object.url\"><t t-out=\"object.url\"/></a>) is working again.</p>\n                   <p>Total downtime: <b><t t-out=\"object.last_downtime_minutes\"/></b> minutes.</p>\n                   <p>Current response time: <t t-out=\"object.response_time\" t-options=\"{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2}\"/> ms.</p>\n               </div>\n           "
+msgstr "<div>\n                   <h2><b>Servicio recuperado</b></h2>\n                   <p><t t-out=\"object.name\"/> (<a t-att-href=\"object.url\"><t t-out=\"object.url\"/></a>) funciona de nuevo.</p>\n                   <p>Tiempo total de caída: <b><t t-out=\"object.last_downtime_minutes\"/></b> minutos.</p>\n                   <p>Tiempo de respuesta actual: <t t-out=\"object.response_time\" t-options=\"{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2}\"/> ms.</p>\n               </div>\n           "
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__db_expiry_date
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor_resources_mixin__db_expiry_date
+msgid "Database Valid Until"
+msgstr "Base de datos válida hasta"
+
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__db_expiry_reason
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor_resources_mixin__db_expiry_reason
+msgid "Database Validity Type"
+msgstr "Tipo de vigencia de la base de datos"
+
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__db_days_left
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor_resources_mixin__db_days_left
+msgid "Database Days Left"
+msgstr "Días restantes de la base de datos"
+
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,help:server_uptime_monitor.field_website_monitor__db_expiry_date
+#: model:ir.model.fields,help:server_uptime_monitor.field_website_monitor_resources_mixin__db_expiry_date
+msgid "Expiration date of the Odoo database (demo, trial or subscription), as reported by the agent."
+msgstr "Fecha de vencimiento de la base de datos Odoo (demo, prueba o suscripción), según informa el agente."
+
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,help:server_uptime_monitor.field_website_monitor__db_days_left
+#: model:ir.model.fields,help:server_uptime_monitor.field_website_monitor_resources_mixin__db_days_left
+msgid "Negative once the database has expired."
+msgstr "Negativo cuando la base de datos ya venció."
+
+
+#. module: server_uptime_monitor
+#: model:mail.template,body_html:server_uptime_monitor.email_monitor_expiry_template
+msgid "<div>\n                   <h2><b>Expiry warning</b></h2>\n                   <p t-if=\"ctx.get('expiry_kind') == 'ssl_expiry'\">\n                       The SSL certificate of <t t-out=\"object.name\"/> expires on\n                       <b><t t-out=\"object.ssl_expiry_date\"/></b>\n                       (<t t-out=\"object.ssl_days_left\"/> days left).\n                   </p>\n                   <p t-elif=\"ctx.get('expiry_kind') == 'db_expiry'\">\n                       The Odoo database of <t t-out=\"object.name\"/> expires on\n                       <b><t t-out=\"object.db_expiry_date\"/></b>\n                       (<t t-out=\"object.db_days_left\"/> days left).\n                       <t t-if=\"object.db_expiry_reason\">Type: <t t-out=\"object.db_expiry_reason\"/>.</t>\n                   </p>\n                   <p t-else=\"\">\n                       The domain of <t t-out=\"object.name\"/> expires on\n                       <b><t t-out=\"object.domain_expiry_date\"/></b>\n                       (<t t-out=\"object.domain_days_left\"/> days left).\n                   </p>\n               </div>\n           "
+msgstr "<div>\n                   <h2><b>Aviso de vencimiento</b></h2>\n                   <p t-if=\"ctx.get('expiry_kind') == 'ssl_expiry'\">\n                       El certificado SSL de <t t-out=\"object.name\"/> vence el\n                       <b><t t-out=\"object.ssl_expiry_date\"/></b>\n                       (<t t-out=\"object.ssl_days_left\"/> días restantes).\n                   </p>\n                   <p t-elif=\"ctx.get('expiry_kind') == 'db_expiry'\">\n                       La base de datos Odoo de <t t-out=\"object.name\"/> vence el\n                       <b><t t-out=\"object.db_expiry_date\"/></b>\n                       (<t t-out=\"object.db_days_left\"/> días restantes).\n                       <t t-if=\"object.db_expiry_reason\">Tipo: <t t-out=\"object.db_expiry_reason\"/>.</t>\n                   </p>\n                   <p t-else=\"\">\n                       El dominio de <t t-out=\"object.name\"/> vence el\n                       <b><t t-out=\"object.domain_expiry_date\"/></b>\n                       (<t t-out=\"object.domain_days_left\"/> días restantes).\n                   </p>\n               </div>\n           "
+
+#. module: server_uptime_monitor
+#: model_terms:ir.ui.view,arch_db:server_uptime_monitor.website_monitor_view_form
+msgid ""
+"The server reports no expiration date for its database (Community edition or"
+" not linked to a subscription yet)."
+msgstr ""
+"El servidor no informa fecha de vencimiento de su base de datos (edición "
+"Community o aún sin vincular a una suscripción)."
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__db_estimate_days
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor_resources_mixin__db_estimate_days
+msgid "Estimate Expiry After (days)"
+msgstr "Estimar vencimiento tras (días)"
+
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,help:server_uptime_monitor.field_website_monitor__db_estimate_days
+#: model:ir.model.fields,help:server_uptime_monitor.field_website_monitor_resources_mixin__db_estimate_days
+msgid "If the database reports no expiration date, assume it expires this many days after its creation, and warn accordingly. 0 disables the estimate."
+msgstr "Si la base de datos no informa fecha de vencimiento, se supone que vence estos días después de su creación y se avisa en consecuencia. 0 desactiva la estimación."
+
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__db_expiry_estimated
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor_resources_mixin__db_expiry_estimated
+msgid "Estimated Expiry"
+msgstr "Vencimiento estimado"
+
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,help:server_uptime_monitor.field_website_monitor__db_expiry_estimated
+#: model:ir.model.fields,help:server_uptime_monitor.field_website_monitor_resources_mixin__db_expiry_estimated
+msgid "The date is an estimate (creation date plus the configured days), not reported by the database."
+msgstr "La fecha es una estimación (fecha de creación más los días configurados), no la informa la base de datos."
+
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__db_create_date
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor_resources_mixin__db_create_date
+msgid "Database Created"
+msgstr "Base de datos creada"
+
+
+#. module: server_uptime_monitor
+#: model:mail.template,body_html:server_uptime_monitor.email_monitor_expiry_template
+msgid "<div>\n                   <h2><b>Expiry warning</b></h2>\n                   <p t-if=\"ctx.get('expiry_kind') == 'ssl_expiry'\">\n                       The SSL certificate of <t t-out=\"object.name\"/> expires on\n                       <b><t t-out=\"object.ssl_expiry_date\"/></b>\n                       (<t t-out=\"object.ssl_days_left\"/> days left).\n                   </p>\n                   <p t-elif=\"ctx.get('expiry_kind') == 'db_expiry'\">\n                       The Odoo database of <t t-out=\"object.name\"/> expires on\n                       <b><t t-out=\"object.db_expiry_date\"/></b>\n                       (<t t-out=\"object.db_days_left\"/> days left).\n                       <t t-if=\"object.db_expiry_reason\">Type: <t t-out=\"object.db_expiry_reason\"/>.</t>\n                       <t t-if=\"object.db_expiry_estimated\">Estimated from the database creation date.</t>\n                   </p>\n                   <p t-else=\"\">\n                       The domain of <t t-out=\"object.name\"/> expires on\n                       <b><t t-out=\"object.domain_expiry_date\"/></b>\n                       (<t t-out=\"object.domain_days_left\"/> days left).\n                   </p>\n               </div>\n           "
+msgstr "<div>\n                   <h2><b>Aviso de vencimiento</b></h2>\n                   <p t-if=\"ctx.get('expiry_kind') == 'ssl_expiry'\">\n                       El certificado SSL de <t t-out=\"object.name\"/> vence el\n                       <b><t t-out=\"object.ssl_expiry_date\"/></b>\n                       (<t t-out=\"object.ssl_days_left\"/> días restantes).\n                   </p>\n                   <p t-elif=\"ctx.get('expiry_kind') == 'db_expiry'\">\n                       La base de datos Odoo de <t t-out=\"object.name\"/> vence el\n                       <b><t t-out=\"object.db_expiry_date\"/></b>\n                       (<t t-out=\"object.db_days_left\"/> días restantes).\n                       <t t-if=\"object.db_expiry_reason\">Tipo: <t t-out=\"object.db_expiry_reason\"/>.</t>\n                       <t t-if=\"object.db_expiry_estimated\">Estimado a partir de la fecha de creación de la base de datos.</t>\n                   </p>\n                   <p t-else=\"\">\n                       El dominio de <t t-out=\"object.name\"/> vence el\n                       <b><t t-out=\"object.domain_expiry_date\"/></b>\n                       (<t t-out=\"object.domain_days_left\"/> días restantes).\n                   </p>\n               </div>\n           "
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__db_alert_days
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor_resources_mixin__db_alert_days
+msgid "Warn Database Expiry (days)"
+msgstr "Avisar vencimiento de la base de datos (días)"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor__expiry_alert_days
+#: model:ir.model.fields,field_description:server_uptime_monitor.field_website_monitor_incident_mixin__expiry_alert_days
+msgid "Warn SSL / Domain Expiry (days)"
+msgstr "Avisar vencimiento de SSL / dominio (días)"
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,help:server_uptime_monitor.field_website_monitor__db_alert_days
+#: model:ir.model.fields,help:server_uptime_monitor.field_website_monitor_resources_mixin__db_alert_days
+msgid "Days before the Odoo database expires at which the group is warned, comma-separated (e.g. 30,15,7,5,1). One warning per level; add 1 to be warned again on the last day."
+msgstr "Días antes de que venza la base de datos Odoo en los que se avisa al grupo, separados por comas (p. ej. 30,15,7,5,1). Un aviso por nivel; añada 1 para recibir otro el último día."
+
+#. module: server_uptime_monitor
+#: model:ir.model.fields,help:server_uptime_monitor.field_website_monitor__expiry_alert_days
+#: model:ir.model.fields,help:server_uptime_monitor.field_website_monitor_incident_mixin__expiry_alert_days
+msgid "Days before the SSL certificate or the domain expires at which the group is warned, comma-separated (e.g. 30,15,7,1). One warning per level."
+msgstr "Días antes de que venza el certificado SSL o el dominio en los que se avisa al grupo, separados por comas (p. ej. 30,15,7,1). Un aviso por nivel."
+
+#. module: server_uptime_monitor
+#. odoo-python
+#: code:addons/server_uptime_monitor/models/monitor_incident.py:0
+#: code:addons/server_uptime_monitor/models/monitor_resources.py:0
+msgid "Warning days must be whole numbers separated by commas, e.g. 30,15,7,1."
+msgstr "Los días de aviso deben ser números enteros separados por comas, p. ej. 30,15,7,1."

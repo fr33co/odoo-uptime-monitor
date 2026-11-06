@@ -1,0 +1,215 @@
+<odoo>
+    <record id="website_monitor_view_list" model="ir.ui.view">
+        <field name="name">website.monitor.list</field>
+        <field name="model">website.monitor</field>
+        <field name="arch" type="xml">
+            <list decoration-success="status == 'up'" decoration-danger="status == 'down'" decoration-muted="status == 'no_checked'" decoration-warning="response_time &gt; max_response_time">
+                <field name="name"/>
+                <field name="url"/>
+                <field name="last_checked"/>
+                <field name="status" widget="badge"/>
+                <field name="http_status"/>
+                <field name="ssl_status"/>
+                <field name="ssl_days_left"/>
+                <field name="uptime_24h" widget="percentage" optional="hide"/>
+                <field name="response_time"/>
+                <field name="max_response_time" column_invisible="True"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="website_monitor_view_kanban" model="ir.ui.view">
+        <field name="name">website.monitor.kanban</field>
+        <field name="model">website.monitor</field>
+        <field name="arch" type="xml">
+            <kanban highlight_color="color" default_group_by="status" create="0">
+                <field name="color"/>
+                <templates>
+                    <t t-name="card">
+                        <field name="name" class="fw-bold fs-5"/>
+                        <field name="status" widget="badge" decoration-success="status == 'up'" decoration-danger="status == 'down'"/>
+                        <field name="url" class="text-muted"/>
+                        <div class="d-flex justify-content-between mt-2">
+                            <span>Uptime 24h</span>
+                            <span><field name="uptime_24h"/> %</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>Uptime 30d</span>
+                            <span><field name="uptime_30d"/> %</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>Response (ms)</span>
+                            <field name="response_time"/>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>SSL days left</span>
+                            <field name="ssl_days_left"/>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="website_monitor_view_form" model="ir.ui.view">
+        <field name="name">website.monitor.form</field>
+        <field name="model">website.monitor</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_check_now" type="object" string="Check Now" class="btn-primary" icon="fa-refresh"/>
+                    <field name="status" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_metric" type="object" class="oe_stat_button" icon="fa-microchip"
+                                context="{'metric': 'cpu_percent'}" invisible="not is_odoo or not agent_enabled">
+                            <field name="cpu_percent" widget="statinfo" string="CPU %"/>
+                        </button>
+                        <button name="action_view_metric" type="object" class="oe_stat_button" icon="fa-tasks"
+                                context="{'metric': 'memory_percent'}" invisible="not is_odoo or not agent_enabled">
+                            <field name="memory_percent" widget="statinfo" string="Memory %"/>
+                        </button>
+                        <button name="action_view_metric" type="object" class="oe_stat_button" icon="fa-hdd-o"
+                                context="{'metric': 'disk_percent'}" invisible="not is_odoo or not agent_enabled">
+                            <field name="disk_percent" widget="statinfo" string="Storage %"/>
+                        </button>
+                        <button name="action_view_metric" type="object" class="oe_stat_button" icon="fa-exchange"
+                                context="{'metric': 'requests_in_flight'}" invisible="not is_odoo or not agent_enabled">
+                            <field name="requests_in_flight" widget="statinfo" string="Concurrent"/>
+                        </button>
+                        <button name="action_view_history" type="object" class="oe_stat_button" icon="fa-line-chart">
+                            <field name="history_count" widget="statinfo" string="History"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Website name"/></h1>
+                    </div>
+                    <group>
+                        <group name="basic">
+                            <field name="check_type"/>
+                            <field name="url" placeholder="https://example.com"/>
+                            <field name="tcp_port" invisible="check_type != 'tcp'" required="check_type == 'tcp'"/>
+                            <field name="monitor_group_id"/>
+                            <field name="show_on_status_page"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                        <group name="state">
+                            <field name="last_checked"/>
+                            <field name="next_check"/>
+                            <field name="service_notified"/>
+                            <field name="consecutive_failures"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Status" name="status">
+                            <group>
+                                <group string="Availability" name="uptime">
+                                    <field name="uptime_24h"/>
+                                    <field name="uptime_7d"/>
+                                    <field name="uptime_30d"/>
+                                    <field name="last_downtime_minutes"/>
+                                </group>
+                                <group string="Last Response" name="http">
+                                    <field name="response_time"/>
+                                    <field name="http_server"/>
+                                    <field name="http_status"/>
+                                    <field name="http_status_msg"/>
+                                </group>
+                                <group string="Server Resources" name="resources" invisible="not is_odoo or not agent_enabled">
+                                    <field name="agent_status"/>
+                                    <field name="db_expiry_date" invisible="not db_expiry_date"/>
+                                    <field name="db_expiry_estimated" invisible="not db_expiry_estimated"/>
+                                    <field name="db_create_date" invisible="not db_create_date"/>
+                                    <field name="db_days_left" invisible="not db_expiry_date"/>
+                                    <field name="db_expiry_reason" invisible="not db_expiry_date"/>
+                                    <div class="text-muted" colspan="2" invisible="db_expiry_date or agent_status != 'OK'">The server reports no expiration date for its database (Community edition or not linked to a subscription yet).</div>
+                                    <field name="cpu_percent"/>
+                                    <field name="memory_percent"/>
+                                    <field name="disk_percent"/>
+                                    <field name="requests_in_flight"/>
+                                </group>
+                                <group string="SSL" name="ssl">
+                                    <field name="ssl_status"/>
+                                    <field name="ssl_issued_by"/>
+                                    <field name="ssl_expiry_date"/>
+                                    <field name="ssl_days_left"/>
+                                </group>
+                                <group string="Domain" name="domain" invisible="not check_domain_expiry">
+                                    <field name="domain_status"/>
+                                    <field name="domain_expiry_date"/>
+                                    <field name="domain_days_left"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Check Settings" name="settings">
+                            <group>
+                                <group string="Schedule" name="schedule">
+                                    <field name="check_interval"/>
+                                    <field name="timeout"/>
+                                    <field name="failure_threshold"/>
+                                    <field name="max_response_time"/>
+                                </group>
+                                <group string="HTTP" name="http_settings" invisible="check_type != 'http'">
+                                    <field name="is_odoo"/>
+                                    <field name="http_method" invisible="is_odoo"/>
+                                    <field name="expected_status"/>
+                                    <field name="expected_keyword"/>
+                                    <field name="verify_ssl"/>
+                                    <field name="check_domain_expiry"/>
+                                    <field name="expiry_alert_days" placeholder="30,15,7,1"/>
+                                </group>
+                                <group string="Server Resources" name="agent_settings" invisible="not is_odoo">
+                                    <field name="agent_enabled"/>
+                                    <field name="agent_url" invisible="not is_odoo or not agent_enabled" placeholder="https://host/server_agent/metrics"/>
+                                    <field name="agent_token" invisible="not is_odoo or not agent_enabled" password="True"/>
+                                    <field name="db_estimate_days" invisible="not is_odoo or not agent_enabled"/>
+                                    <field name="db_alert_days" invisible="not is_odoo or not agent_enabled" placeholder="30,15,7,5,1"/>
+                                    <field name="max_cpu" invisible="not is_odoo or not agent_enabled"/>
+                                    <field name="max_memory" invisible="not is_odoo or not agent_enabled"/>
+                                    <field name="max_disk" invisible="not is_odoo or not agent_enabled"/>
+                                    <field name="max_concurrent" invisible="not is_odoo or not agent_enabled"/>
+                                </group>
+                                <group string="Authentication and Headers" name="auth" invisible="check_type != 'http'">
+                                    <field name="auth_user"/>
+                                    <field name="auth_password" password="True"/>
+                                    <field name="custom_headers" placeholder="Header-Name: value"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="website_monitor_view_search" model="ir.ui.view">
+        <field name="name">website.monitor.search</field>
+        <field name="model">website.monitor</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="url"/>
+                <filter name="down" string="Down" domain="[('status', '=', 'down')]"/>
+                <filter name="up" string="Up" domain="[('status', '=', 'up')]"/>
+                <filter name="ssl_expiring" string="SSL Expiring (30 days)" domain="[('ssl_status', '=', 'Expiring soon')]"/>
+                <filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
+                <group>
+                    <filter name="group_status" string="Status" context="{'group_by': 'status'}"/>
+                    <filter name="group_notify" string="Notify Group" context="{'group_by': 'monitor_group_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="website_monitor_action" model="ir.actions.act_window">
+        <field name="name">Monitored Websites</field>
+        <field name="res_model">website.monitor</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Add a website to monitor</p>
+        </field>
+    </record>
+</odoo>

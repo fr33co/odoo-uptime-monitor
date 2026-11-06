@@ -1,0 +1,80 @@
+<odoo>
+    <record id="website_monitor_history_view_list" model="ir.ui.view">
+        <field name="name">website.monitor.history.list</field>
+        <field name="model">website.monitor.history</field>
+        <field name="arch" type="xml">
+            <list create="0" edit="0" decoration-danger="status == 'down'">
+                <field name="server_id"/>
+                <field name="last_checked"/>
+                <field name="status" widget="badge"/>
+                <field name="http_status"/>
+                <field name="response_time"/>
+                <field name="cpu_percent" optional="show"/>
+                <field name="memory_percent" optional="show"/>
+                <field name="disk_percent" optional="hide"/>
+                <field name="requests_in_flight" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="website_monitor_history_view_graph" model="ir.ui.view">
+        <field name="name">website.monitor.history.graph</field>
+        <field name="model">website.monitor.history</field>
+        <field name="arch" type="xml">
+            <graph type="line">
+                <field name="check_label"/>
+                <field name="server_id"/>
+                <field name="response_time" type="measure"/>
+                <field name="cpu_percent" type="measure"/>
+                <field name="memory_percent" type="measure"/>
+                <field name="disk_percent" type="measure"/>
+                <field name="requests_in_flight" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="website_monitor_history_view_pivot" model="ir.ui.view">
+        <field name="name">website.monitor.history.pivot</field>
+        <field name="model">website.monitor.history</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="server_id" type="row"/>
+                <field name="last_checked" interval="day" type="col"/>
+                <field name="response_time" type="measure"/>
+                <field name="cpu_percent" type="measure"/>
+                <field name="memory_percent" type="measure"/>
+                <field name="requests_in_flight" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="website_monitor_history_view_search" model="ir.ui.view">
+        <field name="name">website.monitor.history.search</field>
+        <field name="model">website.monitor.history</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="server_id"/>
+                <filter name="down" string="Down" domain="[('status', '=', 'down')]"/>
+                <filter name="last_24h" string="Last 24 Hours"
+                        domain="[('last_checked', '&gt;=', (datetime.datetime.now() - datetime.timedelta(hours=24)).strftime('%Y-%m-%d %H:%M:%S'))]"/>
+                <separator/>
+                <filter name="last_checked_filter" string="Last Checked" date="last_checked"/>
+                <group>
+                    <filter name="group_server" string="Server" context="{'group_by': 'server_id'}"/>
+                    <filter name="group_status" string="Status" context="{'group_by': 'status'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="website_monitor_history_action" model="ir.actions.act_window">
+        <field name="name">Website Monitor History</field>
+        <field name="res_model">website.monitor.history</field>
+        <field name="view_mode">graph,list,pivot</field>
+        <field name="context">{'search_default_last_24h': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No history yet</p>
+            <p>History is recorded every time the monitor cron runs.</p>
+        </field>
+    </record>
+</odoo>

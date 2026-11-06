@@ -1,0 +1,23 @@
+<odoo>
+    <menuitem id="website_monitor_menu_root"
+              name="Website Monitor"
+              web_icon="server_uptime_monitor,static/description/icon.png"
+              sequence="1"/>
+    <menuitem id="website_monitor_menu_websites" name="Monitored Websites"
+              parent="website_monitor_menu_root"
+              action="website_monitor_action" sequence="2"/>
+    <menuitem id="website_monitor_menu_report" name="Reporting"
+              parent="website_monitor_menu_root" sequence="3"/>
+    <menuitem id="website_monitor_menu_history" name="History"
+              parent="website_monitor_menu_report"
+              action="website_monitor_history_action" sequence="30"/>
+    <menuitem id="website_monitor_menu_configuration" name="Configuration"
+              parent="website_monitor_menu_root" sequence="4"
+              groups="server_uptime_monitor.group_website_monitor_manager"/>
+    <menuitem id="website_monitor_menu_groups" name="Groups"
+              parent="website_monitor_menu_configuration"
+              action="website_monitor_groups_action" sequence="40"/>
+    <menuitem id="website_monitor_menu_contacts" name="Contacts"
+              parent="website_monitor_menu_configuration"
+              action="website_monitor_contacts_action" sequence="41"/>
+</odoo>

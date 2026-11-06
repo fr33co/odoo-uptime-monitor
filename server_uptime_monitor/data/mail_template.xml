@@ -1,0 +1,165 @@
+<odoo>
+   <data>
+       <record id="email_monitor_template" model="mail.template">
+           <field name="name">Server Uptime Monitor - Email Template</field>
+           <field name="model_id" ref="server_uptime_monitor.model_website_monitor"/>
+           <field name="subject">Alert! Server: {{ object.name }} needs your attention!</field>
+           <field name="body_html" type="html">
+               <div>
+                    <h2><b>Warning!</b></h2>
+                    <p>Your server seems to be having problems. You need to check it.</p>
+                    <p>Check out your server here: <a t-att-href="object.url"><t t-out="object.url"/></a></p>
+                    <p>More information below</p>
+                    <style>
+                    .table_component {
+                        overflow: auto;
+                        width: 100%;
+                    }
+
+                    .table_component table {
+                        border: 1px solid #dededf;
+                        height: 100%;
+                        width: 100%;
+                        table-layout: fixed;
+                        border-collapse: collapse;
+                        border-spacing: 1px;
+                        text-align: left;
+                    }
+
+                    .table_component caption {
+                        caption-side: top;
+                        text-align: left;
+                    }
+
+                    .table_component th {
+                        border: 1px solid #dededf;
+                        background-color: #c0bfbc;
+                        color: #000000;
+                        padding: 5px;
+                    }
+
+                    .table_component td {
+                        border: 1px solid #dededf;
+                        background-color: #ffffff;
+                        color: #000000;
+                        padding: 5px;
+                    }
+                    </style>
+                    <div class="table_component" role="region" tabindex="0">
+                        <table>
+                            <caption>HTTP Server Information</caption>
+                            <thead>
+                                <tr>
+                                    <th>Status</th>
+                                    <th>Response Time (ms)</th>
+                                    <th>HTTP Server</th>
+                                    <th>HTTP Status</th>
+                                    <th>HTTP Status msg</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><t t-out="object.status"/></td>
+                                    <td><t t-out="object.response_time" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    <td><t t-out="object.http_server"/></td>
+                                    <td><t t-out="object.http_status"/></td>
+                                    <td><t t-out="object.http_status_msg"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <t t-if="object.is_odoo and object.agent_enabled and object.agent_status == 'OK'">
+                        <t t-if="object._resource_problems()">
+                            <p><b>Server resources over their limit:</b></p>
+                            <ul>
+                                <li t-foreach="object._resource_problems()" t-as="problem"><t t-out="problem"/></li>
+                            </ul>
+                        </t>
+                        <div class="table_component" role="region" tabindex="0">
+                            <table>
+                                <caption>Server Resources</caption>
+                                <thead>
+                                    <tr>
+                                        <th>CPU (%)</th>
+                                        <th>Memory (%)</th>
+                                        <th>Storage (%)</th>
+                                        <th>Concurrent Requests</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><t t-out="object.cpu_percent" t-options='{"widget": "float", "precision": 1}'/></td>
+                                        <td><t t-out="object.memory_percent" t-options='{"widget": "float", "precision": 1}'/></td>
+                                        <td><t t-out="object.disk_percent" t-options='{"widget": "float", "precision": 1}'/></td>
+                                        <td><t t-out="object.requests_in_flight"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                    <div class="table_component" role="region" tabindex="0">
+                        <table>
+                            <caption>SSL Server Information</caption>
+                            <thead>
+                                <tr>
+                                    <th>SSL Status</th>
+                                    <th>SSL Issued By</th>
+                                    <th>SSL Until</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><t t-out="object.ssl_status"/></td>
+                                    <td><t t-out="object.ssl_issued_by"/></td>
+                                    <td><t t-out="object.ssl_expiry_date"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+               </div>
+           </field>
+       </record>
+
+       <record id="email_monitor_recovery_template" model="mail.template">
+           <field name="name">Server Uptime Monitor - Recovery Template</field>
+           <field name="model_id" ref="server_uptime_monitor.model_website_monitor"/>
+           <field name="subject">Recovered: {{ object.name }} is back online</field>
+           <field name="body_html" type="html">
+               <div>
+                   <h2><b>Service recovered</b></h2>
+                   <p><t t-out="object.name"/> (<a t-att-href="object.url"><t t-out="object.url"/></a>) is working again.</p>
+                   <p>Total downtime: <b><t t-out="object.last_downtime_minutes"/></b> minutes.</p>
+                   <p>Current response time: <t t-out="object.response_time" t-options='{"widget": "float", "precision": 2}'/> ms.</p>
+               </div>
+           </field>
+       </record>
+
+       <record id="email_monitor_expiry_template" model="mail.template">
+           <field name="name">Server Uptime Monitor - Expiry Template</field>
+           <field name="model_id" ref="server_uptime_monitor.model_website_monitor"/>
+           <field name="subject">Expiry warning: {{ object.name }}</field>
+           <field name="body_html" type="html">
+               <div>
+                   <h2><b>Expiry warning</b></h2>
+                   <p t-if="ctx.get('expiry_kind') == 'ssl_expiry'">
+                       The SSL certificate of <t t-out="object.name"/> expires on
+                       <b><t t-out="object.ssl_expiry_date"/></b>
+                       (<t t-out="object.ssl_days_left"/> days left).
+                   </p>
+                   <p t-elif="ctx.get('expiry_kind') == 'db_expiry'">
+                       The Odoo database of <t t-out="object.name"/> expires on
+                       <b><t t-out="object.db_expiry_date"/></b>
+                       (<t t-out="object.db_days_left"/> days left).
+                       <t t-if="object.db_expiry_reason">Type: <t t-out="object.db_expiry_reason"/>.</t>
+                       <t t-if="object.db_expiry_estimated">Estimated from the database creation date.</t>
+                   </p>
+                   <p t-else="">
+                       The domain of <t t-out="object.name"/> expires on
+                       <b><t t-out="object.domain_expiry_date"/></b>
+                       (<t t-out="object.domain_days_left"/> days left).
+                   </p>
+               </div>
+           </field>
+       </record>
+   </data>
+</odoo>
