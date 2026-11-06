@@ -108,6 +108,7 @@ class TestMetrics(IsolatedState):
         params.set_str('database.expiration_date', "2027-01-31 12:30:00")
         params.set_str('database.expiration_reason', "trial")
         params.set_str('database.create_date', "2026-11-04 15:26:07")
+        self.env.flush_all()  # metrics read with raw SQL
         self.assertEqual(
             metrics.database_validity(self.env.cr),
             {'expiration_date': "2027-01-31 12:30:00",
