@@ -3,7 +3,7 @@
         <field name="name">website.monitor.history.list</field>
         <field name="model">website.monitor.history</field>
         <field name="arch" type="xml">
-            <list create="0" edit="0" decoration-danger="status == 'down'">
+            <tree create="0" edit="0" decoration-danger="status == 'down'">
                 <field name="server_id"/>
                 <field name="last_checked"/>
                 <field name="status" widget="badge"/>
@@ -13,7 +13,7 @@
                 <field name="memory_percent" optional="show"/>
                 <field name="disk_percent" optional="hide"/>
                 <field name="requests_in_flight" optional="show"/>
-            </list>
+            </tree>
         </field>
     </record>
 
@@ -70,7 +70,7 @@
     <record id="website_monitor_history_action" model="ir.actions.act_window">
         <field name="name">Website Monitor History</field>
         <field name="res_model">website.monitor.history</field>
-        <field name="view_mode">graph,list,pivot</field>
+        <field name="view_mode">graph,tree,pivot</field>
         <field name="context">{'search_default_last_24h': 1}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">No history yet</p>

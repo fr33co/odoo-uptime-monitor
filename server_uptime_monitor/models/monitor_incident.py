@@ -1,6 +1,6 @@
 from datetime import timedelta
 
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 
 DEFAULT_EXPIRY_DAYS = "30,15,7,1"
@@ -50,7 +50,7 @@ class WebsiteMonitorIncident(models.AbstractModel):
             try:
                 parse_days(monitor.expiry_alert_days)
             except ValueError:
-                raise ValidationError(self.env._(
+                raise ValidationError(_(
                     "Warning days must be whole numbers separated by commas, "
                     "e.g. 30,15,7,1."))
 

@@ -2,7 +2,7 @@ import logging
 from concurrent.futures import ThreadPoolExecutor
 from datetime import timedelta
 
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 
 from . import monitor_checks as checks
@@ -99,7 +99,7 @@ class WebsiteMonitor(models.Model):
         for monitor in self:
             if monitor.check_type == 'tcp' and not 0 < monitor.tcp_port < 65536:
                 raise ValidationError(
-                    self.env._("A valid TCP port is required."))
+                    _("A valid TCP port is required."))
 
     @api.onchange('is_odoo')
     def _onchange_is_odoo(self):

@@ -3,7 +3,7 @@
         <field name="name">website.monitor.list</field>
         <field name="model">website.monitor</field>
         <field name="arch" type="xml">
-            <list decoration-success="status == 'up'" decoration-danger="status == 'down'" decoration-muted="status == 'no_checked'" decoration-warning="response_time &gt; max_response_time">
+            <tree decoration-success="status == 'up'" decoration-danger="status == 'down'" decoration-muted="status == 'no_checked'" decoration-warning="response_time &gt; max_response_time">
                 <field name="name"/>
                 <field name="url"/>
                 <field name="last_checked"/>
@@ -14,7 +14,7 @@
                 <field name="uptime_24h" widget="percentage" optional="hide"/>
                 <field name="response_time"/>
                 <field name="max_response_time" column_invisible="True"/>
-            </list>
+            </tree>
         </field>
     </record>
 
@@ -22,10 +22,11 @@
         <field name="name">website.monitor.kanban</field>
         <field name="model">website.monitor</field>
         <field name="arch" type="xml">
-            <kanban highlight_color="color" default_group_by="status" create="0">
+            <kanban default_group_by="status" create="0">
                 <field name="color"/>
                 <templates>
-                    <t t-name="card">
+                    <t t-name="kanban-box">
+                    <div t-attf-class="#{kanban_color(record.color.raw_value)} oe_kanban_global_click p-3">
                         <field name="name" class="fw-bold fs-5"/>
                         <field name="status" widget="badge" decoration-success="status == 'up'" decoration-danger="status == 'down'"/>
                         <field name="url" class="text-muted"/>
@@ -45,6 +46,7 @@
                             <span>SSL days left</span>
                             <field name="ssl_days_left"/>
                         </div>
+                    </div>
                     </t>
                 </templates>
             </kanban>
@@ -180,7 +182,10 @@
                         </page>
                     </notebook>
                 </sheet>
-                <chatter/>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
             </form>
         </field>
     </record>
@@ -207,7 +212,7 @@
     <record id="website_monitor_action" model="ir.actions.act_window">
         <field name="name">Monitored Websites</field>
         <field name="res_model">website.monitor</field>
-        <field name="view_mode">kanban,list,form</field>
+        <field name="view_mode">kanban,tree,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">Add a website to monitor</p>
         </field>

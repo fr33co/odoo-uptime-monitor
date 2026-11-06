@@ -14,13 +14,13 @@ class WebsiteMonitorHistory(models.Model):
         ondelete='cascade', index=True)
     last_checked = fields.Datetime(string="Last Checked", index=True)
     response_time = fields.Float(
-        string="Response Time (ms)", aggregator='avg')
+        string="Response Time (ms)", group_operator='avg')
     http_status = fields.Integer(string="HTTP Status")
-    cpu_percent = fields.Float(string="CPU (%)", aggregator='avg')
-    memory_percent = fields.Float(string="Memory (%)", aggregator='avg')
-    disk_percent = fields.Float(string="Storage (%)", aggregator='avg')
+    cpu_percent = fields.Float(string="CPU (%)", group_operator='avg')
+    memory_percent = fields.Float(string="Memory (%)", group_operator='avg')
+    disk_percent = fields.Float(string="Storage (%)", group_operator='avg')
     requests_in_flight = fields.Integer(
-        string="Concurrent Requests", aggregator='max')
+        string="Concurrent Requests", group_operator='max')
     check_label = fields.Char(
         string="Check Time (UTC)", compute='_compute_check_label', store=True,
         help="Check time truncated to the minute. Sortable text used to plot"

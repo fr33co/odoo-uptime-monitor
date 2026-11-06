@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 
 from .monitor_incident import parse_days
@@ -77,7 +77,7 @@ class WebsiteMonitorResources(models.AbstractModel):
             try:
                 parse_days(monitor.db_alert_days, DEFAULT_DB_EXPIRY_DAYS)
             except ValueError:
-                raise ValidationError(self.env._(
+                raise ValidationError(_(
                     "Warning days must be whole numbers separated by commas, "
                     "e.g. 30,15,7,1."))
 
@@ -111,7 +111,7 @@ class WebsiteMonitorResources(models.AbstractModel):
             if (monitor.agent_enabled and monitor.check_type == 'tcp'
                     and not monitor.agent_url):
                 raise ValidationError(
-                    self.env._("Set the Agent URL for a TCP monitor."))
+                    _("Set the Agent URL for a TCP monitor."))
 
     def _agent_params(self):
         """Check parameters of the resource check (read here, in the main thread)."""
@@ -162,7 +162,7 @@ class WebsiteMonitorResources(models.AbstractModel):
         action['name'] = self.env['website.monitor.history']._fields[
             metric]._description_string(self.env)
         action['domain'] = [('server_id', '=', self.id)]
-        action['view_mode'] = 'graph,list,pivot'
+        action['view_mode'] = 'graph,tree,pivot'
         action['context'] = {
             'graph_measure': metric,
             'graph_mode': 'line',

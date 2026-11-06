@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 
 
@@ -23,6 +23,6 @@ class WebsiteMonitorContacts(models.Model):
         """Require the contact detail matching the notification type (email or phone)."""
         for contact in self:
             if contact.notification_type == 'email' and not contact.email:
-                raise ValidationError(self.env._("An email is required for email contacts."))
+                raise ValidationError(_("An email is required for email contacts."))
             if contact.notification_type == 'telegram' and not contact.phone:
-                raise ValidationError(self.env._("A phone is required for Telegram contacts."))
+                raise ValidationError(_("A phone is required for Telegram contacts."))
