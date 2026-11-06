@@ -84,13 +84,14 @@ class WebsiteMonitor(models.Model):
 
     color = fields.Integer(string="Color", compute='_compute_color')
 
-    _check_interval_positive = models.Constraint(
-        'CHECK(check_interval > 0)', "The check interval must be positive.")
-    _timeout_positive = models.Constraint(
-        'CHECK(timeout > 0)', "The timeout must be positive.")
-    _threshold_positive = models.Constraint(
-        'CHECK(failure_threshold > 0)',
-        "The failure threshold must be at least 1.")
+    _sql_constraints = [
+        ('check_interval_positive', 'CHECK(check_interval > 0)',
+         "The check interval must be positive."),
+        ('timeout_positive', 'CHECK(timeout > 0)',
+         "The timeout must be positive."),
+        ('threshold_positive', 'CHECK(failure_threshold > 0)',
+         "The failure threshold must be at least 1."),
+    ]
 
     @api.constrains('check_type', 'tcp_port')
     def _check_tcp_port(self):

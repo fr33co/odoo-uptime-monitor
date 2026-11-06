@@ -1,6 +1,6 @@
 {
     'name': 'Server Uptime Monitor',
-    'version': '19.0.2.1.0',
+    'version': '18.0.2.1.0',
     'summary': 'Monitor website availability, response time and SSL certificates',
     'category': 'Tools',
     'author': 'Custom Development',
