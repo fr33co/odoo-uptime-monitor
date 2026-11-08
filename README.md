@@ -16,13 +16,40 @@ version**: `20.0`, `19.0`, `18.0` and `17.0`.
 └──────────────────────────────────────────┘         └───────────────────────────────────────┘
 ```
 
-![Monitored Websites kanban](docs/img/monitor-kanban.png)
-
 ## Documentation
 
 - [Functional guide](docs/functional.md): what it does, how to configure and use it, which alerts are sent.
 - [Technical documentation](docs/technical.md): architecture, models, agent endpoint, security, tests and porting between versions.
 - Per-module READMEs (Odoo format): `server_uptime_monitor/README.rst` and `server_resource_agent/README.rst`.
+
+## Screenshots
+
+**Monitored Websites**: one card per monitor, colored by state (green healthy,
+yellow with warnings, red down).
+
+![Monitored Websites kanban](docs/img/monitor-kanban.png)
+
+**Monitor form**: last result, availability, SSL, server resources and database
+validity, with one smart button per metric.
+
+![Monitor form, Status tab](docs/img/monitor-form.png)
+
+**Check settings**: schedule, HTTP options, thresholds, server resources and
+authentication.
+
+![Monitor form, Check Settings tab](docs/img/monitor-check-settings.png)
+
+**Resource charts**: CPU, memory, storage and concurrent requests over time.
+
+![CPU chart over time](docs/img/cpu-chart.png)
+
+**Notification group**: Odoo users and external contacts who receive the alerts.
+
+![Notification group](docs/img/notification-group.png)
+
+**Public status page** (`/status`): name, state and 30-day uptime only, never the URLs.
+
+![Public status page](docs/img/status-page.png)
 
 ## Quick start
 
