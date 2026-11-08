@@ -3,10 +3,11 @@
     'version': '20.0.2.1.0',
     'summary': 'Monitor website availability, response time and SSL certificates',
     'category': 'Tools',
-    'author': 'Custom Development',
+    'author': 'Angel Guadarrama',
+    'website': 'https://github.com/fr33co',
     'depends': ['mail'],
     'external_dependencies': {'python': ['requests']},
-    'license': 'AGPL-3',
+    'license': 'LGPL-3',
     'data': [
         'security/security.xml',
         'security/ir.access.csv',
