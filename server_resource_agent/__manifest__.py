@@ -10,10 +10,11 @@ polls it. Not available on Odoo Online / Odoo.sh, where modules that read the
 host cannot be relied on.
 """,
     'category': 'Tools',
-    'author': 'Custom Development',
+    'author': 'Angel Guadarrama',
+    'website': 'https://github.com/fr33co',
     'depends': ['base'],
     'external_dependencies': {'python': ['psutil']},
-    'license': 'AGPL-3',
+    'license': 'LGPL-3',
     'post_init_hook': '_post_init_hook',
     'installable': True,
     'application': False,
