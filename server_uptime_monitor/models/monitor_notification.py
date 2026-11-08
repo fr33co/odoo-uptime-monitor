@@ -33,5 +33,11 @@ class WebsiteMonitorNotification(models.AbstractModel):
                 lang_template.send_mail(monitor.id, email_values=values)
 
     def action_send_mail(self):
-        """Send the failure alert to the group, regardless of the incident state."""
+        """Send the failure alert to the group, regardless of the incident state.
+
+        Public methods are callable over RPC by any user who can read the
+        record, so require the same right as editing the monitor.
+        """
+        self.check_access_rights('write')
+        self.check_access_rule('write')
         self._notify('alert')

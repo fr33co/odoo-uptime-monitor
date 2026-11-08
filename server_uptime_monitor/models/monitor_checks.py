@@ -223,6 +223,13 @@ def agent_url(url):
     return '%s://%s%s' % (parsed.scheme, parsed.netloc, AGENT_PATH)
 
 
+def is_secure_agent_url(url):
+    """Whether ``url`` is ``https://`` (plain HTTP is only accepted to loopback hosts)."""
+    parsed = urlparse(url if '://' in url else 'https://' + url)
+    return parsed.scheme == 'https' or parsed.hostname in (
+        'localhost', '127.0.0.1', '::1')
+
+
 def parse_odoo_datetime(text):
     """Parse Odoo's ``YYYY-MM-DD[ HH:MM:SS]`` (UTC) into a naive datetime, or ``False``."""
     for fmt in ('%Y-%m-%d %H:%M:%S', '%Y-%m-%d'):

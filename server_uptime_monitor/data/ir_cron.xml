@@ -3,7 +3,7 @@
         <field name="name">Website Monitor: check websites</field>
         <field name="model_id" ref="model_website_monitor"/>
         <field name="state">code</field>
-        <field name="code">model.check_website_monitor_cron()</field>
+        <field name="code">model._cron_check_websites()</field>
         <field name="user_id" ref="base.user_root"/>
         <field name="interval_number">1</field>
         <field name="interval_type">minutes</field>

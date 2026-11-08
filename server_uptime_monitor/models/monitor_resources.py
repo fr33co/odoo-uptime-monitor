@@ -113,6 +113,14 @@ class WebsiteMonitorResources(models.AbstractModel):
                 raise ValidationError(
                     _("Set the Agent URL for a TCP monitor."))
 
+    @api.constrains('agent_url')
+    def _check_agent_url_scheme(self):
+        """The agent token travels in a header: refuse plain HTTP except to loopback."""
+        for monitor in self.filtered('agent_url'):
+            if not checks.is_secure_agent_url(monitor.agent_url):
+                raise ValidationError(_(
+                    "The Agent URL must use https:// (the token is sent in a header)."))
+
     def _agent_params(self):
         """Check parameters of the resource check (read here, in the main thread)."""
         self.ensure_one()

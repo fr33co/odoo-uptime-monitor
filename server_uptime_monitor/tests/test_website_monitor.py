@@ -2,9 +2,9 @@ from datetime import timedelta
 from unittest.mock import patch
 
 from odoo import fields
-from odoo.exceptions import ValidationError
+from odoo.exceptions import AccessError, ValidationError
 from odoo.tests import tagged
-from odoo.tests.common import TransactionCase
+from odoo.tests.common import TransactionCase, new_test_user
 
 CHECKS = 'odoo.addons.server_uptime_monitor.models.monitor_checks'
 
@@ -89,7 +89,7 @@ class TestWebsiteMonitor(TransactionCase):
         self.monitor.next_check = False
         with patch(f'{CHECKS}.check_http', return_value=dict(OK)), \
                 patch(f'{CHECKS}.check_ssl', return_value=dict(NO_SSL)):
-            self.env['website.monitor'].check_website_monitor_cron()
+            self.env['website.monitor']._cron_check_websites()
         self.assertEqual(self.monitor.status, 'up')
         self.assertEqual(other.status, 'no_checked')
         self.assertEqual(self.monitor.history_count, 1)
@@ -386,3 +386,53 @@ class TestWebsiteMonitor(TransactionCase):
         self.assertTrue(self.monitor.db_expiry_estimated)
         self.assertEqual(self.monitor.db_alert_level, 15)
         self.assertEqual(len(self._mails()), 1)
+
+
+@tagged('post_install', '-at_install')
+class TestSecurity(TransactionCase):
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        group = cls.env['website.monitor.groups'].create({'name': "Ops"})
+        cls.env['website.monitor.contacts'].create({
+            'email': "ops@example.com", 'monitor_group_id': group.id})
+        cls.monitor = cls.env['website.monitor'].create({
+            'name': "Site", 'url': "https://example.test",
+            'monitor_group_id': group.id, 'custom_headers': "X-Key: secret",
+            'auth_user': "bob", 'auth_password': "pw"})
+        cls.reader = new_test_user(
+            cls.env, 'monitor_reader',
+            groups='server_uptime_monitor.group_website_monitor_user')
+
+    def test_reader_cannot_read_secrets(self):
+        monitor = self.monitor.with_user(self.reader)
+        self.assertEqual(monitor.name, "Site")
+        for field in ('custom_headers', 'auth_user', 'auth_password', 'agent_token'):
+            with self.assertRaises(AccessError, msg=field):
+                monitor.read([field])
+
+    def test_checks_still_use_the_secrets(self):
+        params = self.monitor.with_user(self.reader)._check_params()
+        self.assertEqual(params['headers'], {'X-Key': "secret"})
+        self.assertEqual(params['auth'], ("bob", "pw"))
+
+    def test_reader_cannot_trigger_alert_emails(self):
+        with self.assertRaises(AccessError):
+            self.monitor.with_user(self.reader).action_send_mail()
+        self.assertFalse(self.env['mail.mail'].search([
+            ('email_to', '=', 'ops@example.com')]))
+        self.monitor.action_send_mail()  # a manager (here, superuser) can
+        self.assertTrue(self.env['mail.mail'].search([
+            ('email_to', '=', 'ops@example.com')]))
+
+    def test_cron_entry_point_is_private(self):
+        monitors = self.env['website.monitor']
+        self.assertFalse(hasattr(monitors, 'check_website_monitor_cron'))
+        self.assertTrue(callable(monitors._cron_check_websites))
+
+    def test_agent_url_must_be_https(self):
+        with self.assertRaises(ValidationError):
+            self.monitor.agent_url = "http://agent.example.test/server_agent/metrics"
+        self.monitor.agent_url = "https://agent.example.test/server_agent/metrics"
+        self.monitor.agent_url = "http://localhost:8069/server_agent/metrics"

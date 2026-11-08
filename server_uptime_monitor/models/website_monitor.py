@@ -57,8 +57,11 @@ class WebsiteMonitor(models.Model):
         string="Expected Keyword",
         help="The response body must contain this text.")
     custom_headers = fields.Text(
-        string="Custom Headers", help="One 'Name: value' per line.")
-    auth_user = fields.Char(string="Basic Auth User")
+        string="Custom Headers", help="One 'Name: value' per line.",
+        groups='server_uptime_monitor.group_website_monitor_manager')
+    auth_user = fields.Char(
+        string="Basic Auth User",
+        groups='server_uptime_monitor.group_website_monitor_manager')
     auth_password = fields.Char(
         string="Basic Auth Password", groups='server_uptime_monitor.group_website_monitor_manager')
     verify_ssl = fields.Boolean(string="Verify SSL", default=True)
@@ -144,8 +147,8 @@ class WebsiteMonitor(models.Model):
         """Snapshot the settings needed by a check into a plain dict.
 
         Worker threads must not touch the ORM, so everything they need
-        (including the basic auth password, read with sudo because it is
-        restricted to managers) is read here, in the main thread.
+        (including the basic auth credentials and custom headers, read with sudo
+        because they are restricted to managers) is read here, in the main thread.
         """
         self.ensure_one()
         sudo = self.sudo()
@@ -159,7 +162,7 @@ class WebsiteMonitor(models.Model):
             'timeout': self.timeout,
             'odoo': self.is_odoo,
             'verify_ssl': self.verify_ssl,
-            'headers': checks.parse_headers(self.custom_headers),
+            'headers': checks.parse_headers(sudo.custom_headers),
             'auth': auth,
             'expected_status': self.expected_status,
             'keyword': self.expected_keyword,
@@ -187,8 +190,8 @@ class WebsiteMonitor(models.Model):
             monitor._apply_result(self._run_checks(monitor._check_params()))
 
     @api.model
-    def check_website_monitor_cron(self):
-        """Cron entry point: check every monitor that is due, in parallel.
+    def _cron_check_websites(self):
+        """Cron entry point (private: not callable over RPC): check every monitor that is due, in parallel.
 
         Network checks run in a thread pool; results are applied and history is
         created afterwards in this thread. A failure on one monitor is logged
