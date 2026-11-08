@@ -29,6 +29,8 @@ def cpu_percent():
     now = time.time()
     previous = None
     try:
+        if not inflight.safe_dir():
+            raise OSError("untrusted directory")
         with open(CPU_SAMPLE) as f:
             ts, pbusy, ptotal = (float(x) for x in f.read().split())
         if now - ts < MAX_SAMPLE_AGE and total > ptotal:
@@ -44,10 +46,10 @@ def cpu_percent():
 def _save_cpu_sample(busy, total, now):
     """Store the CPU sample used as baseline by the next read (atomic, best effort)."""
     try:
-        os.makedirs(inflight.DIR, mode=0o700, exist_ok=True)
+        if not inflight.safe_dir():
+            return
         tmp = CPU_SAMPLE + '.%d' % os.getpid()
-        with open(tmp, 'w') as f:
-            f.write('%f %f %f' % (now, busy, total))
+        inflight.write_file(tmp, '%f %f %f' % (now, busy, total))
         os.replace(tmp, CPU_SAMPLE)
     except OSError:
         pass

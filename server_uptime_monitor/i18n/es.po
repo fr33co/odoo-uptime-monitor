@@ -912,6 +912,12 @@ msgid "Set the Agent URL for a TCP monitor."
 msgstr "Indique la URL del agente para un monitor TCP."
 
 #. module: server_uptime_monitor
+#. odoo-python
+#: code:addons/server_uptime_monitor/models/monitor_resources.py:0
+msgid "The Agent URL must use https:// (the token is sent in a header)."
+msgstr "La URL del agente debe usar https:// (el token se envía en una cabecera)."
+
+#. module: server_uptime_monitor
 #: model:ir.model.fields,help:server_uptime_monitor.field_website_monitor__agent_token
 msgid "System parameter server_resource_agent.token of the server."
 msgstr "Parámetro del sistema server_resource_agent.token del servidor."
