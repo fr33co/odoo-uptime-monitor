@@ -47,7 +47,7 @@ Usage example
 
    curl -H "Authorization: Bearer $TOKEN" https://host/server_agent/metrics
 
-See ``docs/tecnica.md`` in the repository for the response format and design.
+See ``docs/technical.md`` in the repository for the response format and design.
 
 Tests
 =====

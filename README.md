@@ -1,52 +1,59 @@
-# Módulos de monitoreo de servidores para Odoo
+# Server monitoring modules for Odoo
 
-Dos addons para vigilar sitios web y servidores Odoo. Hay **una rama por versión
-de Odoo**: `20.0`, `19.0`, `18.0` y `17.0`.
+Two addons to watch websites and Odoo servers. There is **one branch per Odoo
+version**: `20.0`, `19.0`, `18.0` and `17.0`.
 
-| Módulo | Dónde se instala | Para qué sirve |
+| Module | Where to install it | What it does |
 |---|---|---|
-| `server_uptime_monitor` | El Odoo que hace el monitoreo | Revisa sitios web y servicios TCP (disponibilidad, tiempo de respuesta, SSL, vencimiento de dominio), mide lentitud de instancias Odoo, lee recursos del servidor y validez de la base de datos, envía alertas por correo y publica una página de estado. |
-| `server_resource_agent` | Cada servidor Odoo que quieras vigilar | Expone `/server_agent/metrics`, un endpoint de solo lectura protegido con token: CPU, memoria, almacenamiento, solicitudes concurrentes y validez de la base de datos. |
+| `server_uptime_monitor` | The Odoo that runs the monitoring | Checks websites and TCP services (availability, response time, SSL, domain expiry), measures the slowness of Odoo instances, reads server resources and database validity, sends email alerts and publishes a status page. |
+| `server_resource_agent` | Every Odoo server you want to watch | Exposes `/server_agent/metrics`, a read-only, token-protected endpoint: CPU, memory, storage, concurrent requests and database validity. |
 
 ```
-┌──────────── Odoo de monitoreo ───────────┐         ┌──────── Servidor Odoo vigilado ───────┐
+┌──────────── Monitoring Odoo ─────────────┐         ┌──────── Watched Odoo server ──────────┐
 │ server_uptime_monitor                    │  HTTPS  │ server_resource_agent                 │
-│  cron cada minuto → hilos → checks ──────┼────────►│  GET /server_agent/metrics (token)    │
-│  historial, alertas, página /status      │         │  CPU · memoria · disco · concurrencia │
+│  cron every minute → threads → checks ───┼────────►│  GET /server_agent/metrics (token)    │
+│  history, alerts, /status page           │         │  CPU · memory · disk · concurrency    │
 └──────────────────────────────────────────┘         └───────────────────────────────────────┘
 ```
 
-## Documentación
+![Monitored Websites kanban](docs/img/monitor-kanban.png)
 
-- [Guía funcional](docs/funcional.md): qué hace, cómo se configura y se usa, qué alertas llegan.
-- [Documentación técnica](docs/tecnica.md): arquitectura, modelos, endpoint del agente, seguridad, pruebas y portado entre versiones.
-- READMEs de cada módulo (formato Odoo, en inglés): `server_uptime_monitor/README.rst` y `server_resource_agent/README.rst`.
+## Documentation
 
-## Inicio rápido
+- [Functional guide](docs/functional.md): what it does, how to configure and use it, which alerts are sent.
+- [Technical documentation](docs/technical.md): architecture, models, agent endpoint, security, tests and porting between versions.
+- Per-module READMEs (Odoo format): `server_uptime_monitor/README.rst` and `server_resource_agent/README.rst`.
 
-1. En el Odoo de monitoreo instala `server_uptime_monitor` (requiere el paquete Python `requests`).
-2. *Website Monitor ▸ Configuration ▸ Groups*: crea un grupo con los usuarios o contactos que recibirán los correos.
-3. *Website Monitor ▸ Monitored Websites*: crea un monitor con nombre, URL y grupo.
-4. Para un servidor Odoo propio: marca *Odoo Instance*; si además quieres recursos, instala `server_resource_agent` allí (requiere `psutil`), copia el token del parámetro de sistema `server_resource_agent.token` y actívalo en la pestaña *Check Settings ▸ Server Resources*.
-5. Verifica que el servidor de correo saliente de Odoo funcione: sin él las alertas quedan en cola.
+## Quick start
 
-## Versiones
+1. On the monitoring Odoo, install `server_uptime_monitor` (requires the Python package `requests`).
+2. *Website Monitor ▸ Configuration ▸ Groups*: create a group with the users or contacts who will receive the emails.
+3. *Website Monitor ▸ Monitored Websites*: create a monitor with a name, URL and group.
+4. For your own Odoo server: tick *Odoo Instance*; if you also want resources, install `server_resource_agent` there (requires `psutil`), copy the token from the system parameter `server_resource_agent.token` and enable it in the *Check Settings ▸ Server Resources* tab.
+5. Make sure Odoo's outgoing mail server works: without it, alerts stay in the queue.
 
-| Rama | Diferencias principales |
+## Versions
+
+| Branch | Main differences |
 |---|---|
-| `20.0` | Base del desarrollo (`ir.access.csv`, `models.Constraint`, `env._`, `get_str/set_str`). |
+| `20.0` | Development base (`ir.access.csv`, `models.Constraint`, `env._`, `get_str/set_str`). |
 | `19.0` | `ir.model.access.csv`, `get_param/set_param`. |
-| `18.0` | `_sql_constraints`; grupos con categoría (sin `res.groups.privilege`). |
-| `17.0` | `_()` importado, vistas `tree`, `kanban-box`, chatter como `div`, `numbercall` en el cron, `group_operator`. |
+| `18.0` | `_sql_constraints`; groups with a category (no `res.groups.privilege`). |
+| `17.0` | `_()` imported, `tree` views, `kanban-box`, chatter as a `div`, `numbercall` on the cron, `group_operator`. |
 
-Las correcciones se hacen primero en `20.0` y se portan hacia abajo
+Fixes are made first on `20.0` and ported downwards
 (`20.0 → 19.0 → 18.0 → 17.0`).
 
-## Pruebas
+## Tests
 
 ```
-odoo -d <bd> -i server_uptime_monitor,server_resource_agent \
+odoo -d <db> -i server_uptime_monitor,server_resource_agent \
      --test-tags /server_uptime_monitor,/server_resource_agent --stop-after-init
 ```
 
-43 pruebas, todas en verde en las cuatro versiones.
+50 tests, all green on `20.0`.
+
+## License and author
+
+Copyright © Angel Guadarrama ([github.com/fr33co](https://github.com/fr33co)).
+Licensed under the [GNU Lesser General Public License v3.0](LICENSE) (LGPL-3).
