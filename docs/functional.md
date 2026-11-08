@@ -1,127 +1,139 @@
-# Guía funcional
+# Functional guide
 
-## 1. Qué problema resuelve
+## 1. What problem it solves
 
-- Saber cuándo un sitio o servicio **cae**, **se pone lento** o está a punto de **vencer** (certificado SSL, dominio, base de datos demo/trial de Odoo).
-- Saber cuándo una **instancia Odoo** está sobrecargada (CPU, memoria, disco, solicitudes concurrentes) sin entrar al servidor.
-- Avisar por correo a las personas correctas, **una sola vez por incidente**, y avisar también cuando se recupera.
+- Know when a site or service **goes down**, **slows down** or is about to **expire** (SSL certificate, domain, Odoo demo/trial database).
+- Know when an **Odoo instance** is overloaded (CPU, memory, disk, concurrent requests) without logging in to the server.
+- Notify the right people by email, **once per incident**, and notify them again when it recovers.
 
 ## 2. Roles
 
-| Grupo (*Ajustes ▸ Usuarios ▸ Website Monitor*) | Puede |
+| Group (*Settings ▸ Users ▸ Website Monitor*) | Can |
 |---|---|
-| **User** | Ver monitores, grupos, contactos e historial. |
-| **Administrator** | Todo lo anterior, crear/editar/borrar y ver el menú *Configuration*, la contraseña de autenticación básica y el token del agente. |
+| **User** | View monitors, groups, contacts and history. |
+| **Administrator** | Everything above, plus create/edit/delete, and see the *Configuration* menu, the basic-auth credentials, the custom headers and the agent token. Give it only to trusted people: monitors make requests from the monitoring server. |
 
-## 3. Menús
+## 3. Menus
 
-- **Monitored Websites**: kanban agrupado por estado (verde sano, amarillo con advertencias, rojo caído), lista y formulario.
-- **Reporting ▸ History**: gráfica de líneas, lista y pivote del historial de cada revisión.
-- **Configuration ▸ Groups / Contacts**: a quién se avisa.
+- **Monitored Websites**: kanban grouped by status (green healthy, yellow with warnings, red down), list and form.
+- **Reporting ▸ History**: line chart, list and pivot of the history of every check.
+- **Configuration ▸ Groups / Contacts**: who gets notified.
 
-## 4. Configurar a quién se avisa
+![Monitored Websites kanban](img/monitor-kanban.png)
 
-1. **Groups**: crea un grupo (p. ej. "Soporte"). Añade *usuarios Odoo* (se usa el correo de su contacto) y/o *contactos externos* (solo correo).
-2. Cada monitor pertenece a un grupo (*Notify Group*).
+## 4. Configuring who is notified
 
-> Los contactos de tipo Telegram se pueden guardar, pero todavía no se envía ningún mensaje por ese medio.
+1. **Groups**: create a group (e.g. "Support"). Add *Odoo users* (the email of their contact card is used) and/or *external contacts* (email only).
+2. Each monitor belongs to one group (*Notify Group*).
 
-## 5. Crear un monitor
+![Notification group](img/notification-group.png)
 
-Campos básicos: **Nombre**, **URL / Host**, **Tipo de revisión** (HTTP o puerto TCP), **Grupo a notificar**, y *Show on Status Page* si debe salir en la página pública.
+> Telegram-type contacts can be saved, but no message is sent through that channel yet.
 
-Pestaña **Check Settings**:
+## 5. Creating a monitor
 
-| Sección | Campo | Significado |
+Basic fields: **Name**, **URL / Host**, **Check type** (HTTP or TCP port), **Notify group**, and *Show on Status Page* if it should appear on the public page.
+
+**Check Settings** tab:
+
+| Section | Field | Meaning |
 |---|---|---|
-| Schedule | Check Every (min) | Cada cuánto se revisa (por defecto 5). |
-| | Timeout (s) | Tiempo máximo de espera. |
-| | Failures Before Alert | Fallos seguidos antes de alertar (por defecto 2). Evita falsas alarmas. |
-| | Slow Threshold (ms) | Una respuesta más lenta que esto cuenta como problema (por defecto 4000). |
-| HTTP | Odoo Instance | Mide como lo necesita una instancia Odoo (ver §6). |
-| | Method / Expected Status / Expected Keyword | Método GET/HEAD, código esperado (0 = cualquiera menor a 500), texto que debe contener la respuesta. |
-| | Verify SSL | Valida el certificado. |
-| | Check Domain Expiry | Consulta el vencimiento del dominio (RDAP, una vez al día). |
-| | Warn SSL / Domain Expiry (days) | Niveles de aviso, por defecto `30,15,7,1`. |
-| Authentication and Headers | Usuario/contraseña básica, cabeceras | Para sitios protegidos. |
-| Server Resources | (ver §7) | Solo si *Odoo Instance* está marcado. |
+| Schedule | Check Every (min) | How often it is checked (default 5). |
+| | Timeout (s) | Maximum time to wait. |
+| | Failures Before Alert | Consecutive failures before alerting (default 2). Avoids false alarms. |
+| | Slow Threshold (ms) | A response slower than this counts as a problem (default 4000). |
+| HTTP | Odoo Instance | Measures the way an Odoo instance needs it (see §6). |
+| | Method / Expected Status / Expected Keyword | GET/HEAD method, expected status code (0 = anything below 500), text the response must contain. |
+| | Verify SSL | Validates the certificate. |
+| | Check Domain Expiry | Looks up the domain expiry (RDAP, once a day). |
+| | Warn SSL / Domain Expiry (days) | Warning levels, `30,15,7,1` by default. |
+| Authentication and Headers | Basic-auth user/password, headers | For protected sites. |
+| Server Resources | (see §7) | Only if *Odoo Instance* is ticked. |
 
-Botón **Check Now**: revisa de inmediato y guarda una fila de historial.
+![Check Settings tab](img/monitor-check-settings.png)
 
-## 6. Instancias Odoo (*Odoo Instance*)
+**Check Now** button: checks immediately and stores a history row.
 
-Pensado para Odoo.sh u Odoo online, donde interesa saber si la instancia está lenta sin cargarla:
+![Monitor form, Status tab](img/monitor-form.png)
 
-- Hace **una sola** petición anónima a `/web/login` del sitio (la página la genera un worker y necesita la base de datos, así que su latencia refleja la carga real).
-- Mide solo el tiempo hasta recibir las cabeceras y lee como máximo 64 KiB para confirmar que **la respuesta es realmente Odoo** (un 404 o un sitio ajeno no se reporta como sano).
-- Combínalo con *Slow Threshold* y *Failures Before Alert* para recibir aviso solo si la lentitud persiste. Usa un intervalo de 5 minutos o más.
+## 6. Odoo instances (*Odoo Instance*)
 
-## 7. Recursos del servidor y validez de la base de datos
+Designed for Odoo.sh or Odoo Online, where you want to know whether the instance is slow without loading it:
 
-Solo para servidores Odoo que **controlas** (no aplica a Odoo Online / Odoo.sh, donde no se pueden instalar módulos que lean el host).
+- Makes **a single** anonymous request to the site's `/web/login` (the page is rendered by a worker and needs the database, so its latency reflects the real load).
+- Measures only the time until the headers arrive and reads at most 64 KiB to confirm that **the response is really Odoo** (a 404 or a foreign site is not reported as healthy).
+- Combine it with *Slow Threshold* and *Failures Before Alert* to be alerted only if the slowness persists. Use an interval of 5 minutes or more.
 
-1. En el servidor vigilado instala `server_resource_agent`. Al instalarse genera un token aleatorio en el parámetro de sistema `server_resource_agent.token`.
-2. En el monitor: marca *Odoo Instance* y *Server Resources*, pega el token en *Agent Token*. *Agent URL* es opcional (por defecto `<origen del sitio>/server_agent/metrics`; obligatoria en monitores TCP).
-3. Ajusta los umbrales: *Max CPU/Memory/Storage (%)* (90 por defecto) y *Max Concurrent Requests* (0 = desactivado).
+## 7. Server resources and database validity
 
-Qué se obtiene:
+Only for Odoo servers you **control** (not applicable to Odoo Online / Odoo.sh, where modules that read the host cannot be installed).
 
-- En el formulario, botones con **CPU, memoria, almacenamiento y solicitudes concurrentes**; cada uno abre una **gráfica en el tiempo**. Si el servidor no es Odoo, estas gráficas y datos no se muestran.
-- Un umbral superado cuenta como problema y dispara el flujo normal de alertas.
-- Si el agente no responde, se muestra en *Agent Status*, pero **no** se considera caída del sitio.
-- *Solicitudes concurrentes* es el **pico** entre dos revisiones, para no perder picos cortos.
+1. On the watched server, install `server_resource_agent`. On install it generates a random token in the system parameter `server_resource_agent.token`.
+2. On the monitor: tick *Odoo Instance* and *Server Resources*, and paste the token into *Agent Token*. *Agent URL* is optional (defaults to `<site origin>/server_agent/metrics`; mandatory on TCP monitors). An explicit URL must use `https://`, because the token is sent in a header.
+3. Adjust the thresholds: *Max CPU/Memory/Storage (%)* (90 by default) and *Max Concurrent Requests* (0 = disabled).
 
-### Validez de la base de datos (demos y trials)
+What you get:
 
-Las demos y pruebas de Odoo vencen y suelen no avisar. El agente lee la fecha que Odoo guarda y el monitor la muestra en la pestaña *Status*:
+- On the form, buttons with **CPU, memory, storage and concurrent requests**; each opens a **chart over time**. If the server is not Odoo, these charts and data are not shown.
+![CPU chart over time](img/cpu-chart.png)
 
-- Si la base reporta `expiration_date`, **esa fecha manda**.
-- Si no reporta ninguna, se **estima** como *fecha de creación + Estimate Expiry After (days)* (30 por defecto) y se marca como *Estimated Expiry* en pantalla y en el correo. Ponlo en 0 para desactivar la estimación (bases que no vencen).
-- Se avisa por correo **5 días antes** por defecto; se configura en *Warn Database Expiry (days)* (p. ej. `30,15,7,5,1`; añade `1` para un último aviso).
-- La tarjeta kanban pasa a amarillo cuando faltan 7 días o menos.
+- An exceeded threshold counts as a problem and triggers the normal alert flow.
+- If the agent does not respond, it is shown in *Agent Status*, but it is **not** treated as the site being down.
+- *Concurrent requests* is the **peak** between two checks, so short spikes are not missed.
 
-> La fecha puede estar desactualizada hasta que Odoo se sincronice con su editor. El "un mes" que muestra *Ajustes* es solo un valor provisional (hoy + 30 días).
+### Database validity (demos and trials)
 
-## 8. Correos que se envían
+Odoo demos and trials expire and usually give no warning. The agent reads the date Odoo stores and the monitor shows it in the *Status* tab:
 
-| Correo | Cuándo |
+- If the database reports an `expiration_date`, **that date wins**.
+- If it reports none, it is **estimated** as *creation date + Estimate Expiry After (days)* (30 by default) and flagged as *Estimated Expiry* on screen and in the email. Set it to 0 to disable the estimate (databases that do not expire).
+- An email is sent **5 days before** by default; configure it in *Warn Database Expiry (days)* (e.g. `30,15,7,5,1`; add `1` for a last warning).
+- The kanban card turns yellow when 7 days or fewer remain.
+
+> The date may be out of date until Odoo syncs with its publisher. The "one month" shown in *Settings* is only a provisional value (today + 30 days).
+
+## 8. Emails sent
+
+| Email | When |
 |---|---|
-| **Alerta** | Al llegar a *Failures Before Alert* problemas consecutivos (caído, estado inesperado, falta la palabra clave, error SSL, lentitud, recurso sobre el umbral). Una vez por incidente. |
-| **Recuperación** | Cuando el monitor vuelve a estar sano; indica los minutos de caída. |
-| **Vencimiento** | SSL, dominio o base de datos: una vez al cruzar cada nivel de días configurado, y cuando ya venció. |
+| **Alert** | When *Failures Before Alert* consecutive problems are reached (down, unexpected status, keyword missing, SSL error, slowness, resource over threshold). Once per incident. |
+| **Recovery** | When the monitor is healthy again; states the minutes of downtime. |
+| **Expiry** | SSL, domain or database: once on crossing each configured day level, and when already expired. |
 
-Si el servidor es Odoo, el correo de alerta incluye los recursos. Los correos están traducidos al español (`es_ES`).
+If the server is Odoo, the alert email includes the resources. The emails are translated into Spanish (`es_ES`).
 
-## 9. Estados y colores
+## 9. Statuses and colors
 
-| Color | Significa |
+| Color | Meaning |
 |---|---|
-| Gris | Aún no revisado. |
-| Verde | Arriba y sin problemas. |
-| Amarillo | Arriba pero con advertencia: lento, recurso alto, SSL por vencer o base de datos por vencer. |
-| Rojo | Caído. |
+| Grey | Not checked yet. |
+| Green | Up with no problems. |
+| Yellow | Up but with a warning: slow, high resource usage, SSL about to expire or database about to expire. |
+| Red | Down. |
 
-## 10. Historial y purga
+## 10. History and purge
 
-Cada revisión programada guarda una fila (tiempo de respuesta, estado HTTP y, si aplica, recursos). Se purgan automáticamente las de más de **90 días**; se cambia con el parámetro de sistema `server_uptime_monitor.history_retention_days`.
+Every scheduled check stores a row (response time, HTTP status and, where applicable, resources). Rows older than **90 days** are purged automatically; change this with the system parameter `server_uptime_monitor.history_retention_days`.
 
-## 11. Página pública de estado
+## 11. Public status page
 
-`/status` lista los monitores con *Show on Status Page*: solo nombre, estado y uptime de 30 días. **Nunca expone URLs.**
+`/status` lists the monitors with *Show on Status Page*: only name, status and 30-day uptime. **It never exposes URLs.**
 
-## 12. Limitaciones conocidas
+![Public status page](img/status-page.png)
 
-- Telegram aún no envía mensajes.
-- El dominio se reconoce con una regla simple de sufijos de segundo nivel (`.com.co`, `.co.uk`, `.gob.mx`…), no con la lista pública completa. Los dominios de la plataforma (`odoo.com`, `odoo.sh`, `odoo.dev`) se omiten a propósito.
-- El eje de la gráfica (`check_label`) está en UTC.
-- La entrega depende del servidor de correo saliente de la base.
+## 12. Known limitations
 
-## 13. Problemas frecuentes
+- Telegram does not send messages yet.
+- The domain is recognized with a simple second-level suffix rule (`.com.co`, `.co.uk`, `.gob.mx`…), not the full public suffix list. Platform domains (`odoo.com`, `odoo.sh`, `odoo.dev`) are skipped on purpose.
+- The chart axis (`check_label`) is in UTC.
+- Delivery depends on the database's outgoing mail server.
 
-| Síntoma | Causa / solución |
+## 13. Troubleshooting
+
+| Symptom | Cause / solution |
 |---|---|
-| Las alertas no llegan | Falta servidor de correo saliente, o el grupo no tiene contactos con correo. Revisa *Ajustes ▸ Técnico ▸ Correos*. |
-| *Agent Status* = `HTTP 404 (check URL and token)` | Token incorrecto, IP fuera de `allowed_ips`, módulo no instalado o URL equivocada (el agente responde 404 a propósito). |
-| *Agent Status* = `Error: …` | Sin conexión al servidor, certificado inválido (revisa *Verify SSL*) o respuesta no JSON. |
-| El vencimiento de dominio queda vacío | Dominio de plataforma, IP, o el registro no publica fecha (`domain_status` lo explica). |
-| Tras actualizar el módulo, error "no es una acción válida" | Reinicia el servicio de Odoo **antes** de actualizar para cargar el código nuevo. |
+| Alerts do not arrive | No outgoing mail server, or the group has no contacts with an email. Check *Settings ▸ Technical ▸ Emails*. |
+| *Agent Status* = `HTTP 404 (check URL and token)` | Wrong token, IP outside `allowed_ips`, module not installed or wrong URL (the agent answers 404 on purpose). |
+| *Agent Status* = `Error: …` | No connection to the server, invalid certificate (check *Verify SSL*) or non-JSON response. |
+| Domain expiry stays empty | Platform domain, an IP, or the registry does not publish a date (`domain_status` explains it). |
+| After upgrading the module, error "is not a valid action" | Restart the Odoo service **before** upgrading so the new code is loaded. |
