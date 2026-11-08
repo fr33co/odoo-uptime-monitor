@@ -7,6 +7,7 @@ peak is reset whenever the endpoint reads it, so a short spike between two
 polls is not missed.
 """
 import os
+import stat
 import tempfile
 import threading
 import time
@@ -20,12 +21,35 @@ _lock = threading.Lock()
 _state = {'current': 0, 'peak': 0, 'peak_started': 0.0}
 
 
+def safe_dir():
+    """Create the working directory and check it is really ours.
+
+    The directory lives in the shared temp folder under a predictable name,
+    so another local user could have planted it (or a symlink) beforehand:
+    refuse it unless it is a real directory owned by this user and closed to
+    everyone else.
+    """
+    try:
+        os.makedirs(DIR, mode=0o700, exist_ok=True)
+        info = os.lstat(DIR)
+    except OSError:
+        return False
+    return (stat.S_ISDIR(info.st_mode) and info.st_uid == os.getuid()
+            and not info.st_mode & 0o077)
+
+
+def write_file(path, text):
+    """Write ``text`` to ``path`` without following a symlink planted there."""
+    fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_TRUNC | os.O_NOFOLLOW, 0o600)
+    with os.fdopen(fd, 'w') as f:
+        f.write(text)
+
+
 def _write():
     """Persist this process's counters to its own file (best effort)."""
     try:
-        os.makedirs(DIR, mode=0o700, exist_ok=True)
-        with open(os.path.join(DIR, str(os.getpid())), 'w') as f:
-            f.write('%d %d %f' % (
+        if safe_dir():
+            write_file(os.path.join(DIR, str(os.getpid())), '%d %d %f' % (
                 _state['current'], _state['peak'], _state['peak_started']))
     except OSError:
         pass  # monitoring must never break a request
@@ -34,7 +58,7 @@ def _write():
 def _reset_peak_if_read():
     """Restart the peak when the endpoint has read the counters since it started."""
     try:
-        marked = os.stat(READ_MARK).st_mtime
+        marked = os.lstat(READ_MARK).st_mtime
     except OSError:
         return
     if marked > _state['peak_started']:
@@ -63,8 +87,10 @@ def leave():
 def read():
     """Return ``(in_flight, peak)`` summed over live processes, then reset the peaks."""
     current = peak = 0
+    if not safe_dir():
+        return 0, 0
     try:
-        last_read = os.stat(READ_MARK).st_mtime
+        last_read = os.lstat(READ_MARK).st_mtime
     except OSError:
         last_read = 0.0
     try:
@@ -90,13 +116,11 @@ def read():
         except (OSError, ValueError):
             continue
     try:
-        os.makedirs(DIR, mode=0o700, exist_ok=True)
-        with open(READ_MARK, 'w') as f:
-            f.write('')
+        write_file(READ_MARK, '')
         # Exact timestamp: the file system's own mtime is too coarse to be
         # compared reliably with the peak start times.
         now = time.time()
-        os.utime(READ_MARK, (now, now))
+        os.utime(READ_MARK, (now, now), follow_symlinks=False)
     except OSError:
         pass
     return current, peak

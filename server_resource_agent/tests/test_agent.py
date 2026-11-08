@@ -77,6 +77,25 @@ class TestInflight(IsolatedState):
 
 
 @tagged('post_install', '-at_install')
+class TestUntrustedDirectory(IsolatedState):
+
+    def test_directory_open_to_others_is_ignored(self):
+        os.chmod(inflight.DIR, 0o777)
+        inflight.enter()
+        self.assertEqual(os.listdir(inflight.DIR), [], "nothing written")
+        self.assertEqual(inflight.read(), (0, 0))
+
+    def test_symlink_in_the_directory_is_not_followed(self):
+        victim = os.path.join(self.tmp.name, 'victim')
+        with open(victim, 'w') as f:
+            f.write('keep')
+        os.symlink(victim, os.path.join(inflight.DIR, str(os.getpid())))
+        inflight.enter()
+        with open(victim) as f:
+            self.assertEqual(f.read(), 'keep')
+
+
+@tagged('post_install', '-at_install')
 class TestMetrics(IsolatedState):
 
     def test_cpu_uses_delta_from_the_shared_sample(self):
